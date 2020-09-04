@@ -4,7 +4,7 @@ that is the number of seconds since the user started typing if they have already
 spacebar will advance the bolded word to be the next word in the paragraph. Once one minute has passed, the user will be able to see their words per minute (abbreviated as WPM). 
 
 <img src="pictures/Phalangee.png">
-<img src="pictures/Phalangee.png">
+<img src="pictures/Phalangee_end.png">
 
 <h1> Plans for the application </h1>
 This is a work in progress, so I plan to:
