@@ -11,6 +11,6 @@ This is a work in progress, so I plan to:
 <ul>
   <li> Make the GUI more visually appealing </li>
   <li> Create a database that allows users to store their score data </li>
-  <li> Implement a graph that shows how the user has performed over time <li>
+  <li> Implement a graph that shows how the user has performed over time </li>
   <li> More paragraphs for the user to type off of </li>
- </ul>
+</ul>
