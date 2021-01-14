@@ -35,7 +35,7 @@ public class MainView extends JFrame{
 		/* initializes the pane holding the paragraph with contents and dimensions */
 		paragraphPane.setPreferredSize(new Dimension(100, 600));
 		paragraphPane.setMaximumSize(new Dimension(2000, 800));
-		paragraphPane.setText(ParagraphGenerator.getRandomParagraph());
+		paragraphPane.setText(ParagraphGenerator.generate_paragraph());
 		paragraphPane.setEditable(false);
 		paragraphPane.setBackground(Color.YELLOW);
 		
