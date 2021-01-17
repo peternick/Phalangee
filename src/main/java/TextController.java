@@ -23,7 +23,7 @@ public class TextController {
 	private JTextPane paragraph;
 	private final String fullParagraphStr;
 	private JTextField typedWord;
-	private MainView view;
+	private GUIInGame view;
 	private Timer timer;
 	private static int carot;
 	private String[] wordArr;
@@ -34,7 +34,7 @@ public class TextController {
 	 * 
 	 * @param mainView the view of the application consisting of a JFrame containing JComponents
 	 */
-	public TextController(MainView mainView) {
+	public TextController(GUIInGame mainView) {
 		paragraph = mainView.getParagraph();
 		fullParagraphStr = paragraph.getText();
 		typedWord = mainView.getInputField();
@@ -58,7 +58,7 @@ public class TextController {
 		typedWord.addKeyListener(new KeyListener() {
 
 			//when the user types a space (key code = 32) checks whether the typed word is the same as the word that is bolded in the view
-			@Override
+			
 			public void keyPressed(KeyEvent arg0) {
 				if(arg0.getKeyCode() == 32) {
 					String enteredStr = typedWord.getText();
@@ -71,11 +71,10 @@ public class TextController {
 					typedWord.setText(null);
 				}
 			}
-			@Override
+			
 			public void keyReleased(KeyEvent e) {
 
 			}
-			@Override
 			public void keyTyped(KeyEvent e) {
 
 			}
@@ -88,18 +87,17 @@ public class TextController {
 	 */
 	public void listenForStartInput() {
 		typedWord.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
 			public void changedUpdate(DocumentEvent arg0) {
 			}
 	
-			@Override
+			
 			public void insertUpdate(DocumentEvent e) {
 				// TODO Auto-generated method stub
 				if(typingStarted == false) {
 					typingStarted = true;
-					int init_s = (int)System.currentTimeMillis() / 1000;
+					final int init_s = (int)System.currentTimeMillis() / 1000;
 					timer = new Timer(1000, new ActionListener() {
-						@Override
+						
 						public void actionPerformed(ActionEvent arg0) {
 							// TODO Auto-generated method stub
 							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
@@ -117,7 +115,6 @@ public class TextController {
 				}
 			}
 	
-			@Override
 			public void removeUpdate(DocumentEvent e) {
 			}
 		});
