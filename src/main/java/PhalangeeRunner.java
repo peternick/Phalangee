@@ -5,8 +5,7 @@ public class PhalangeeRunner {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GUIInGame view = GUIInGame.getInstance();
-		TextController controller = new TextController(view);
+		TextController controller = new TextController();
 		controller.start();
 		//System.out.println(view.getParagraph());
 		

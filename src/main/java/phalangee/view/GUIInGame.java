@@ -1,3 +1,4 @@
+package phalangee.view;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -47,7 +48,7 @@ public class GUIInGame extends javax.swing.JFrame {
     /**
      * Creates new form GUIInGame
      */
-    public GUIInGame() {
+    private GUIInGame() {
     	
         initComponents();
         this.setVisible(true);

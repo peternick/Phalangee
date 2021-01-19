@@ -1,3 +1,4 @@
+package phalangee.view;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,8 +8,9 @@ import javax.swing.text.*;
 import javax.swing.text.Highlighter.HighlightPainter;
 
 
-public class GUILogin extends javax.swing.JFrame{
-	
+public class GUICreateAccount extends javax.swing.JFrame{
+
+	private static GUICreateAccount createAccountInstance;
 	private javax.swing.JButton MPBPConfBtn;
     private javax.swing.JPanel MPBPConfBtnPanel;
     private javax.swing.JPanel MPLPLbls;
@@ -29,15 +31,20 @@ public class GUILogin extends javax.swing.JFrame{
     private javax.swing.JPanel middlePanel;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JPanel topPanel;
-    
+	
 	/**
      * Creates new form GUIUserLogin
      */
-    public GUILogin() {
+	public GUICreateAccount() {
         initComponents();
-        this.setVisible(true);
     }
 
+	public static GUICreateAccount getInstance() {
+		if(createAccountInstance == null) {
+			createAccountInstance = new GUICreateAccount();
+		}
+		return createAccountInstance;
+	}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,6 +227,5 @@ public class GUILogin extends javax.swing.JFrame{
         getContentPane().add(middlePanel, java.awt.BorderLayout.CENTER);
 
         pack();
-    }// </editor-fold>     
-	
+    }// </editor-fold>    
 }

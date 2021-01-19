@@ -1,3 +1,4 @@
+import phalangee.view.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,6 +12,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import phalangee.model.*;
+
 /**
  * The controller for the Phalangee project; handles manipulations to the components of the main window
  *    
@@ -18,15 +21,22 @@ import javax.swing.text.StyledDocument;
  */
 public class TextController {
 
-	private static int numWordsEntered;
-	private static boolean typingStarted = false;
-	private JTextPane paragraph;
-	private final String fullParagraphStr;
-	private JTextField typedWord;
-	private GUIInGame view;
-	private Timer timer;
-	private static int carot;
-	private String[] wordArr;
+	private static GUILogin loginWin;
+	private static GUIInGame inGameWin;
+	private static GUICreateAccount createAccountWin;
+	private static CreateAccountLogic createAccountLogic;
+	private static InGameLogic inGameLogic;
+	private static LoginLogic loginLogic;
+	
+//	private static int numWordsEntered;
+//	private static boolean typingStarted = false;
+//	private JTextPane paragraph;
+//	private final String fullParagraphStr;
+//	private JTextField typedWord;
+//	private GUIInGame view;
+//	private Timer timer;
+//	private static int carot;
+//	private String[] wordArr;
 	
 	/**
 	 * The constructor for the TextController class takes in the one instance of the MainView class that sets up the GUI of the application.
@@ -34,42 +44,35 @@ public class TextController {
 	 * 
 	 * @param mainView the view of the application consisting of a JFrame containing JComponents
 	 */
-	public TextController(GUIInGame mainView) {
-		paragraph = mainView.getParagraph();
-		fullParagraphStr = paragraph.getText();
-		typedWord = mainView.getInputField();
-		numWordsEntered = 0;
-		carot = 0;
-		wordArr = paragraph.getText().split(" ");
-		this.view = mainView;
+	public TextController() {
+		this.loginWin = GUILogin.getInstance();
+		this.inGameWin = GUIInGame.getInstance();
+		this.createAccountWin = GUICreateAccount.getInstance();
+		this.inGameLogic = inGameLogic.getInstance(this.inGameWin);
+		
+		
+//		paragraph = mainView.getParagraph();
+//		fullParagraphStr = paragraph.getText();
+//		typedWord = mainView.getInputField();
+//		numWordsEntered = 0;
+//		carot = 0;
+//		wordArr = paragraph.getText().split(" ");
+//		this.view = mainView;
 		
 	}
 	
-	public void start() {
-		listenForStartInput();
-		input_handler();
-		getNextWord();
-	}
-	
-	/**
-	 * handles text input from the user 
+	/*
+	 * When a word is fully typed into the text field of the GUIInGame window, this method listens to the keyboard for the spacebar. If the spacebar is 
+	 * pressed, it will signify the end of the typed word and the InGameLogic classes handles whether to proceed to the next word in the paragraph
+	 * or have the user type in the word again due to a misspelling
 	 */
-	public void input_handler() {
+	public void txt_input_handler() {
+		JTextField typedWord = this.inGameLogic.getMainTextField();
 		typedWord.addKeyListener(new KeyListener() {
 
-			//when the user types a space (key code = 32) checks whether the typed word is the same as the word that is bolded in the view
-			
+			//invokes the enterWord method of the InGameLogic class to signify the end of a user typed word
 			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode() == 32) {
-					String enteredStr = typedWord.getText();
-					if(enteredStr.charAt(0) == ' ') {
-						enteredStr = enteredStr.substring(1);
-					}
-					if(enteredStr.equals(wordArr[numWordsEntered - 1]) && numWordsEntered > 0) {
-						getNextWord();
-					}
-					typedWord.setText(null);
-				}
+				inGameLogic.enterWord(arg0);
 			}
 			
 			public void keyReleased(KeyEvent e) {
@@ -82,81 +85,47 @@ public class TextController {
 		});
 	}
 	
-	/**
-	 * called when the user starts typing their first word of the entire execution of the program; initiates the timer 
-	 */
-	public void listenForStartInput() {
-		typedWord.getDocument().addDocumentListener(new DocumentListener() {
-			public void changedUpdate(DocumentEvent arg0) {
-			}
 	
-			
-			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				if(typingStarted == false) {
-					typingStarted = true;
-					final int init_s = (int)System.currentTimeMillis() / 1000;
-					timer = new Timer(1000, new ActionListener() {
-						
-						public void actionPerformed(ActionEvent arg0) {
-							// TODO Auto-generated method stub
-							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
-							if(secs == 61) {
-								timer.stop();
-								view.displayTimeOrScore("WPM: " + numWordsEntered);
-								
-							}
-							else {
-								view.displayTimeOrScore(secs);
-							}
-						}
-					});	
-					timer.start();
-				}
-			}
+//	/**
+//	 * called when the user starts typing their first word of the entire execution of the program; initiates the timer 
+//	 */
+//	public void listenForStartInput() {
+//		JTextField typedWord = this.inGameLogic.getMainTextField();
+//		typedWord.getDocument().addDocumentListener(new DocumentListener() {
+//			public void changedUpdate(DocumentEvent arg0) {
+//			}
+//	
+//			
+//			public void insertUpdate(DocumentEvent e) {
+//				// TODO Auto-generated method stub
+//				if(typingStarted == false) {
+//					typingStarted = true;
+//					final int init_s = (int)System.currentTimeMillis() / 1000;
+//					timer = new Timer(1000, new ActionListener() {
+//						
+//						public void actionPerformed(ActionEvent arg0) {
+//							// TODO Auto-generated method stub
+//							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
+//							if(secs == 61) {
+//								timer.stop();
+//								gameGUI.displayTimeOrScore("WPM: " + numWordsEntered);
+//								
+//							}
+//							else {
+//								gameGUI.displayTimeOrScore(secs);
+//							}
+//						}
+//					});	
+//					timer.start();
+//				}
+//			}
+//	
+//			public void removeUpdate(DocumentEvent e) {
+//			}
+//		});
+//	}
 	
-			public void removeUpdate(DocumentEvent e) {
-			}
-		});
-	}
 	
-	/**
-	 * advances the bolded word of the paragraph on the main view depending on if the user typed it in correctly or not
-	 */
-	public void getNextWord() {
-		if(numWordsEntered == 0) {
-			String subPara = fullParagraphStr.substring(wordArr[numWordsEntered].length());
-			paragraph.setText(subPara);
-			StyledDocument doc = paragraph.getStyledDocument();
-			SimpleAttributeSet attr = new SimpleAttributeSet();
-			StyleConstants.setBold(attr, true);
-			try {
-				doc.insertString(0, wordArr[numWordsEntered], attr);
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			}
-			carot = wordArr[numWordsEntered].length() + 1;
-		}
-		else {
-			String followingText = fullParagraphStr.substring(carot);
-			String precedingText = "";
-			int i = 0;
-			while(i < numWordsEntered) {
-				precedingText = precedingText + wordArr[i] + " ";
-				i++;
-			}
-			paragraph.setText(precedingText + " " + followingText);
-			StyledDocument doc = paragraph.getStyledDocument();
-			SimpleAttributeSet attr = new SimpleAttributeSet();
-			StyleConstants.setBold(attr, true);
-			try {
-				doc.insertString(precedingText.length(), wordArr[numWordsEntered], attr);
-			} catch (BadLocationException e) {
-				e.printStackTrace();
-			}
-		}
-		numWordsEntered++;
-		carot = wordArr[numWordsEntered].length() + carot + 1;
-	}
+	
 	
 }
