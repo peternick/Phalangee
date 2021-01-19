@@ -27,16 +27,16 @@ public class TextController {
 	private static CreateAccountLogic createAccountLogic;
 	private static InGameLogic inGameLogic;
 	private static LoginLogic loginLogic;
+	private JTextPane paragraph;
+	private JTextField typedWord;
+	private String[] wordArr;
 	
 //	private static int numWordsEntered;
 //	private static boolean typingStarted = false;
-//	private JTextPane paragraph;
 //	private final String fullParagraphStr;
-//	private JTextField typedWord;
-//	private GUIInGame view;
 //	private Timer timer;
 //	private static int carot;
-//	private String[] wordArr;
+//	
 	
 	/**
 	 * The constructor for the TextController class takes in the one instance of the MainView class that sets up the GUI of the application.
@@ -45,20 +45,24 @@ public class TextController {
 	 * @param mainView the view of the application consisting of a JFrame containing JComponents
 	 */
 	public TextController() {
+		this.paragraph = inGameWin.getParagraph();
+		this.typedWord = inGameWin.getInputField();
+		this.wordArr = paragraph.getText().split(" ");
 		this.loginWin = GUILogin.getInstance();
 		this.inGameWin = GUIInGame.getInstance();
 		this.createAccountWin = GUICreateAccount.getInstance();
 		this.inGameLogic = inGameLogic.getInstance(this.inGameWin);
 		
-		
-//		paragraph = mainView.getParagraph();
 //		fullParagraphStr = paragraph.getText();
-//		typedWord = mainView.getInputField();
 //		numWordsEntered = 0;
 //		carot = 0;
-//		wordArr = paragraph.getText().split(" ");
-//		this.view = mainView;
+//		
 		
+	}
+	
+	
+	public void start() {
+		this.loginWin.setVisible(true);
 	}
 	
 	/*
@@ -67,12 +71,15 @@ public class TextController {
 	 * or have the user type in the word again due to a misspelling
 	 */
 	public void txt_input_handler() {
-		JTextField typedWord = this.inGameLogic.getMainTextField();
-		typedWord.addKeyListener(new KeyListener() {
+		this.typedWord.addKeyListener(new KeyListener() {
 
 			//invokes the enterWord method of the InGameLogic class to signify the end of a user typed word
 			public void keyPressed(KeyEvent arg0) {
-				inGameLogic.enterWord(arg0);
+				if((inGameLogic.enterWord(arg0)) == 0) {
+					inGameWin.setInputField(null);
+				} else if((inGameLogic.enterWord(arg0)) == 1) {
+					inGameWin.advanceWord(inGameLogic, inGameLogic.getNextWord());
+				}
 			}
 			
 			public void keyReleased(KeyEvent e) {
@@ -86,44 +93,46 @@ public class TextController {
 	}
 	
 	
-//	/**
-//	 * called when the user starts typing their first word of the entire execution of the program; initiates the timer 
-//	 */
-//	public void listenForStartInput() {
-//		JTextField typedWord = this.inGameLogic.getMainTextField();
-//		typedWord.getDocument().addDocumentListener(new DocumentListener() {
-//			public void changedUpdate(DocumentEvent arg0) {
-//			}
-//	
-//			
-//			public void insertUpdate(DocumentEvent e) {
-//				// TODO Auto-generated method stub
-//				if(typingStarted == false) {
-//					typingStarted = true;
-//					final int init_s = (int)System.currentTimeMillis() / 1000;
-//					timer = new Timer(1000, new ActionListener() {
-//						
-//						public void actionPerformed(ActionEvent arg0) {
-//							// TODO Auto-generated method stub
-//							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
-//							if(secs == 61) {
-//								timer.stop();
-//								gameGUI.displayTimeOrScore("WPM: " + numWordsEntered);
-//								
-//							}
-//							else {
-//								gameGUI.displayTimeOrScore(secs);
-//							}
-//						}
-//					});	
-//					timer.start();
-//				}
-//			}
-//	
-//			public void removeUpdate(DocumentEvent e) {
-//			}
-//		});
-//	}
+	/**
+	 * called when the user starts typing their first word of the entire execution of the program; initiates the timer 
+	 */
+	public void listenForStartInput() {
+		JTextField typedWord = this.inGameWin.getInputField();
+		typedWord.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent arg0) {
+			}
+	
+			
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				Boolean typingStarted = inGameLogic.getTypingStarted();
+				if(typingStarted == false) {
+					typingStarted = true;
+					final int init_s = (int)System.currentTimeMillis() / 1000;
+					Timer timer = inGameLogic.getTimer();
+					timer = new Timer(1000, new ActionListener() {
+						
+						public void actionPerformed(ActionEvent arg0) {
+							// TODO Auto-generated method stub
+							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
+							if(secs == 61) {
+								inGameLogic.stopTimer();;
+								inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
+								
+							}
+							else {
+								inGameWin.displayTimeOrScore(secs);
+							}
+						}
+					});	
+					timer.start();
+				}
+			}
+	
+			public void removeUpdate(DocumentEvent e) {
+			}
+		});
+	}
 	
 	
 	

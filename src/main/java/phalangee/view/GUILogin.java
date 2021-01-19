@@ -11,33 +11,33 @@ import javax.swing.text.Highlighter.HighlightPainter;
 public class GUILogin extends javax.swing.JFrame{
 	
 	private static GUILogin loginInstance;
-	private javax.swing.JButton MPBPConfBtn;
-    private javax.swing.JPanel MPBPConfBtnPanel;
-    private javax.swing.JPanel MPLPLbls;
-    private javax.swing.JLabel MPLPPsswdLbl;
-    private javax.swing.JSeparator MPLPSep1;
-    private javax.swing.JLabel MPLPUserLbl;
+	private javax.swing.JPanel BottomPanel;
+    private javax.swing.JButton CreateAccountBtn;
+    private javax.swing.JPanel LeftPanel;
+    private javax.swing.JPanel MPBP;
+    private javax.swing.JSeparator MPLblSep;
+    private javax.swing.JPanel MPLbls;
+    private javax.swing.JPanel MPMPInputs;
     private javax.swing.JSeparator MPMPSep1;
     private javax.swing.JSeparator MPMPSep2;
-    private javax.swing.JTextField MPMPTxtField1;
-    private javax.swing.JTextField MPMPTxtField2;
-    private javax.swing.JPanel MPMPtxtFields;
     private javax.swing.JPanel MPRP;
     private javax.swing.JPanel MPTP;
-    private javax.swing.JLabel TPPsswdWarningLbl;
-    private javax.swing.JPanel bottomPanel;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JPanel leftPanel;
-    private javax.swing.JPanel middlePanel;
-    private javax.swing.JPanel rightPanel;
-    private javax.swing.JPanel topPanel;
+    private javax.swing.JPanel MiddlePanel;
+    private javax.swing.JPanel RightPanel;
+    private javax.swing.JSeparator TPBPSep;
+    private javax.swing.JSeparator TPTPSep;
+    private javax.swing.JPanel TopPanel;
+    private javax.swing.JButton loginBtn;
+    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JLabel passwordLbl;
+    private javax.swing.JTextField usernameInput;
+    private javax.swing.JLabel usernameLbl;
     
 	/**
      * Creates new form GUIUserLogin
      */
     public GUILogin() {
         initComponents();
-        this.setVisible(true);
     }
     
     public static GUILogin getInstance() {
@@ -56,124 +56,124 @@ public class GUILogin extends javax.swing.JFrame{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        leftPanel = new javax.swing.JPanel();
-        topPanel = new javax.swing.JPanel();
-        jSeparator4 = new javax.swing.JSeparator();
-        TPPsswdWarningLbl = new javax.swing.JLabel();
-        rightPanel = new javax.swing.JPanel();
-        bottomPanel = new javax.swing.JPanel();
-        middlePanel = new javax.swing.JPanel();
-        MPLPLbls = new javax.swing.JPanel();
-        MPLPUserLbl = new javax.swing.JLabel();
-        MPLPSep1 = new javax.swing.JSeparator();
-        MPLPPsswdLbl = new javax.swing.JLabel();
+        LeftPanel = new javax.swing.JPanel();
+        TopPanel = new javax.swing.JPanel();
+        TPTPSep = new javax.swing.JSeparator();
+        CreateAccountBtn = new javax.swing.JButton();
+        TPBPSep = new javax.swing.JSeparator();
+        RightPanel = new javax.swing.JPanel();
+        BottomPanel = new javax.swing.JPanel();
+        MiddlePanel = new javax.swing.JPanel();
+        MPLbls = new javax.swing.JPanel();
+        usernameLbl = new javax.swing.JLabel();
+        MPLblSep = new javax.swing.JSeparator();
+        passwordLbl = new javax.swing.JLabel();
         MPTP = new javax.swing.JPanel();
         MPRP = new javax.swing.JPanel();
-        MPBPConfBtnPanel = new javax.swing.JPanel();
-        MPBPConfBtn = new javax.swing.JButton();
-        MPMPtxtFields = new javax.swing.JPanel();
-        MPMPTxtField1 = new javax.swing.JTextField();
+        MPBP = new javax.swing.JPanel();
+        loginBtn = new javax.swing.JButton();
+        MPMPInputs = new javax.swing.JPanel();
+        usernameInput = new javax.swing.JTextField();
         MPMPSep1 = new javax.swing.JSeparator();
-        MPMPTxtField2 = new javax.swing.JTextField();
+        passwordInput = new javax.swing.JPasswordField();
         MPMPSep2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phalangee - Login");
         setMinimumSize(new java.awt.Dimension(400, 300));
 
-        leftPanel.setPreferredSize(new java.awt.Dimension(30, 120));
+        LeftPanel.setPreferredSize(new java.awt.Dimension(30, 120));
 
-        javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
-        leftPanel.setLayout(leftPanelLayout);
-        leftPanelLayout.setHorizontalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
+        LeftPanel.setLayout(LeftPanelLayout);
+        LeftPanelLayout.setHorizontalGroup(
+            LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 30, Short.MAX_VALUE)
         );
-        leftPanelLayout.setVerticalGroup(
-            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        LeftPanelLayout.setVerticalGroup(
+            LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        getContentPane().add(leftPanel, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(LeftPanel, java.awt.BorderLayout.LINE_START);
 
-        topPanel.setPreferredSize(new java.awt.Dimension(400, 50));
-        topPanel.setLayout(new javax.swing.BoxLayout(topPanel, javax.swing.BoxLayout.Y_AXIS));
+        TopPanel.setPreferredSize(new java.awt.Dimension(400, 50));
+        TopPanel.setLayout(new javax.swing.BoxLayout(TopPanel, javax.swing.BoxLayout.Y_AXIS));
+        TopPanel.add(TPTPSep);
 
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator4.setMaximumSize(new java.awt.Dimension(0, 32767));
-        jSeparator4.setPreferredSize(new java.awt.Dimension(0, 10));
-        topPanel.add(jSeparator4);
+        CreateAccountBtn.setText("Create Account");
+        CreateAccountBtn.setAlignmentX(0.55F);
+        TopPanel.add(CreateAccountBtn);
 
-        TPPsswdWarningLbl.setForeground(new java.awt.Color(47, 47, 47));
-        TPPsswdWarningLbl.setText("*Password must have a capital letter and a number");
-        TPPsswdWarningLbl.setAlignmentX(0.5F);
-        TPPsswdWarningLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        topPanel.add(TPPsswdWarningLbl);
+        TPBPSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        TPBPSep.setMaximumSize(new java.awt.Dimension(0, 32767));
+        TPBPSep.setMinimumSize(new java.awt.Dimension(0, 10));
+        TPBPSep.setPreferredSize(new java.awt.Dimension(0, 10));
+        TopPanel.add(TPBPSep);
 
-        getContentPane().add(topPanel, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(TopPanel, java.awt.BorderLayout.PAGE_START);
 
-        rightPanel.setPreferredSize(new java.awt.Dimension(30, 120));
+        RightPanel.setPreferredSize(new java.awt.Dimension(30, 120));
 
-        javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
-        rightPanel.setLayout(rightPanelLayout);
-        rightPanelLayout.setHorizontalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout RightPanelLayout = new javax.swing.GroupLayout(RightPanel);
+        RightPanel.setLayout(RightPanelLayout);
+        RightPanelLayout.setHorizontalGroup(
+            RightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 30, Short.MAX_VALUE)
         );
-        rightPanelLayout.setVerticalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+        RightPanelLayout.setVerticalGroup(
+            RightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 213, Short.MAX_VALUE)
         );
 
-        getContentPane().add(rightPanel, java.awt.BorderLayout.LINE_END);
+        getContentPane().add(RightPanel, java.awt.BorderLayout.LINE_END);
 
-        bottomPanel.setPreferredSize(new java.awt.Dimension(400, 20));
+        BottomPanel.setPreferredSize(new java.awt.Dimension(400, 20));
 
-        javax.swing.GroupLayout bottomPanelLayout = new javax.swing.GroupLayout(bottomPanel);
-        bottomPanel.setLayout(bottomPanelLayout);
-        bottomPanelLayout.setHorizontalGroup(
-            bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout BottomPanelLayout = new javax.swing.GroupLayout(BottomPanel);
+        BottomPanel.setLayout(BottomPanelLayout);
+        BottomPanelLayout.setHorizontalGroup(
+            BottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        bottomPanelLayout.setVerticalGroup(
-            bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        BottomPanelLayout.setVerticalGroup(
+            BottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        getContentPane().add(bottomPanel, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(BottomPanel, java.awt.BorderLayout.PAGE_END);
 
-        middlePanel.setMaximumSize(new java.awt.Dimension(600, 500));
-        middlePanel.setMinimumSize(new java.awt.Dimension(200, 50));
-        middlePanel.setName(""); // NOI18N
-        middlePanel.setPreferredSize(new java.awt.Dimension(340, 50));
-        middlePanel.setLayout(new java.awt.BorderLayout());
+        MiddlePanel.setMaximumSize(new java.awt.Dimension(600, 500));
+        MiddlePanel.setMinimumSize(new java.awt.Dimension(200, 50));
+        MiddlePanel.setName(""); // NOI18N
+        MiddlePanel.setPreferredSize(new java.awt.Dimension(340, 50));
+        MiddlePanel.setLayout(new java.awt.BorderLayout());
 
-        MPLPLbls.setMaximumSize(new java.awt.Dimension(120, 300));
-        MPLPLbls.setPreferredSize(new java.awt.Dimension(130, 50));
-        MPLPLbls.setLayout(new javax.swing.BoxLayout(MPLPLbls, javax.swing.BoxLayout.Y_AXIS));
+        MPLbls.setMaximumSize(new java.awt.Dimension(120, 300));
+        MPLbls.setPreferredSize(new java.awt.Dimension(130, 50));
+        MPLbls.setLayout(new javax.swing.BoxLayout(MPLbls, javax.swing.BoxLayout.Y_AXIS));
 
-        MPLPUserLbl.setText("Username:");
-        MPLPUserLbl.setAlignmentX(0.5F);
-        MPLPUserLbl.setIconTextGap(50);
-        MPLPLbls.add(MPLPUserLbl);
+        usernameLbl.setText("Username:");
+        usernameLbl.setAlignmentX(0.5F);
+        usernameLbl.setIconTextGap(50);
+        MPLbls.add(usernameLbl);
 
-        MPLPSep1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        MPLPSep1.setMaximumSize(new java.awt.Dimension(0, 40));
-        MPLPSep1.setMinimumSize(new java.awt.Dimension(0, 5));
-        MPLPSep1.setPreferredSize(new java.awt.Dimension(0, 20));
-        MPLPLbls.add(MPLPSep1);
+        MPLblSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        MPLblSep.setMaximumSize(new java.awt.Dimension(0, 40));
+        MPLblSep.setMinimumSize(new java.awt.Dimension(0, 5));
+        MPLblSep.setPreferredSize(new java.awt.Dimension(0, 20));
+        MPLbls.add(MPLblSep);
 
-        MPLPPsswdLbl.setText("Password:");
-        MPLPPsswdLbl.setAlignmentX(0.5F);
-        MPLPPsswdLbl.setIconTextGap(20);
-        MPLPLbls.add(MPLPPsswdLbl);
+        passwordLbl.setText("Password:");
+        passwordLbl.setAlignmentX(0.5F);
+        passwordLbl.setIconTextGap(20);
+        MPLbls.add(passwordLbl);
 
-        middlePanel.add(MPLPLbls, java.awt.BorderLayout.LINE_START);
+        MiddlePanel.add(MPLbls, java.awt.BorderLayout.LINE_START);
 
         MPTP.setMaximumSize(new java.awt.Dimension(300, 300));
         MPTP.setMinimumSize(new java.awt.Dimension(149, 100));
         MPTP.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 10));
-        middlePanel.add(MPTP, java.awt.BorderLayout.PAGE_START);
+        MiddlePanel.add(MPTP, java.awt.BorderLayout.PAGE_START);
 
         MPRP.setMinimumSize(new java.awt.Dimension(10, 60));
         MPRP.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -186,49 +186,59 @@ public class GUILogin extends javax.swing.JFrame{
         );
         MPRPLayout.setVerticalGroup(
             MPRPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
 
-        middlePanel.add(MPRP, java.awt.BorderLayout.LINE_END);
+        MiddlePanel.add(MPRP, java.awt.BorderLayout.LINE_END);
 
-        MPBPConfBtnPanel.setMaximumSize(new java.awt.Dimension(0, 70));
-        MPBPConfBtnPanel.setPreferredSize(new java.awt.Dimension(340, 70));
-        MPBPConfBtnPanel.setLayout(new javax.swing.BoxLayout(MPBPConfBtnPanel, javax.swing.BoxLayout.Y_AXIS));
+        MPBP.setMaximumSize(new java.awt.Dimension(0, 70));
+        MPBP.setPreferredSize(new java.awt.Dimension(340, 70));
+        MPBP.setLayout(new javax.swing.BoxLayout(MPBP, javax.swing.BoxLayout.Y_AXIS));
 
-        MPBPConfBtn.setText("Confirm");
-        MPBPConfBtn.setAlignmentX(0.5F);
-        MPBPConfBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        MPBPConfBtnPanel.add(MPBPConfBtn);
+        loginBtn.setText("Login");
+        loginBtn.setAlignmentX(0.5F);
+        loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MPBP.add(loginBtn);
 
-        middlePanel.add(MPBPConfBtnPanel, java.awt.BorderLayout.PAGE_END);
+        MiddlePanel.add(MPBP, java.awt.BorderLayout.PAGE_END);
 
-        MPMPtxtFields.setPreferredSize(new java.awt.Dimension(140, 50));
-        MPMPtxtFields.setLayout(new javax.swing.BoxLayout(MPMPtxtFields, javax.swing.BoxLayout.Y_AXIS));
+        MPMPInputs.setPreferredSize(new java.awt.Dimension(140, 50));
+        MPMPInputs.setLayout(new javax.swing.BoxLayout(MPMPInputs, javax.swing.BoxLayout.Y_AXIS));
 
-        MPMPTxtField1.setMargin(new java.awt.Insets(0, 6, 2, 6));
-        MPMPTxtField1.setMaximumSize(new java.awt.Dimension(200, 300));
-        MPMPTxtField1.setMinimumSize(new java.awt.Dimension(64, 24));
-        MPMPTxtField1.setPreferredSize(new java.awt.Dimension(130, 24));
-        MPMPtxtFields.add(MPMPTxtField1);
+        usernameInput.setMargin(new java.awt.Insets(0, 6, 2, 6));
+        usernameInput.setMaximumSize(new java.awt.Dimension(200, 300));
+        usernameInput.setMinimumSize(new java.awt.Dimension(64, 24));
+        usernameInput.setPreferredSize(new java.awt.Dimension(130, 30));
+        MPMPInputs.add(usernameInput);
 
         MPMPSep1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         MPMPSep1.setMaximumSize(new java.awt.Dimension(0, 400));
-        MPMPSep1.setPreferredSize(new java.awt.Dimension(0, 10));
-        MPMPtxtFields.add(MPMPSep1);
+        MPMPSep1.setPreferredSize(new java.awt.Dimension(0, 30));
+        MPMPInputs.add(MPMPSep1);
 
-        MPMPTxtField2.setMaximumSize(new java.awt.Dimension(200, 300));
-        MPMPtxtFields.add(MPMPTxtField2);
+        passwordInput.setMaximumSize(new java.awt.Dimension(200, 300));
+        passwordInput.setPreferredSize(new java.awt.Dimension(90, 30));
+        passwordInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordInputActionPerformed(evt);
+            }
+        });
+        MPMPInputs.add(passwordInput);
 
         MPMPSep2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         MPMPSep2.setMaximumSize(new java.awt.Dimension(0, 500));
-        MPMPSep2.setPreferredSize(new java.awt.Dimension(0, 10));
-        MPMPtxtFields.add(MPMPSep2);
+        MPMPSep2.setPreferredSize(new java.awt.Dimension(0, 40));
+        MPMPInputs.add(MPMPSep2);
 
-        middlePanel.add(MPMPtxtFields, java.awt.BorderLayout.CENTER);
+        MiddlePanel.add(MPMPInputs, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(middlePanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(MiddlePanel, java.awt.BorderLayout.CENTER);
 
         pack();
-    }// </editor-fold>     
+    }// </editor-fold>   
 	
+    
+    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    } 
 }

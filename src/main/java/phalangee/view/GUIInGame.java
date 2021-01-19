@@ -1,6 +1,12 @@
 package phalangee.view;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
+import phalangee.model.InGameLogic;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -51,7 +57,7 @@ public class GUIInGame extends javax.swing.JFrame {
     private GUIInGame() {
     	
         initComponents();
-        this.setVisible(true);
+        
     }
 
     /**
@@ -66,6 +72,12 @@ public class GUIInGame extends javax.swing.JFrame {
 	 */
 	public JTextField getInputField() {
 		return typeField;
+	}
+	/**
+	 * @param String text to set the input field to
+	 */
+	public void setInputField(String text) {
+		this.typeField.setText(text);
 	}
 	/**
 	 * @param newParagraph a randomly generated paragraph to be displayed on the GUI
@@ -92,6 +104,35 @@ public class GUIInGame extends javax.swing.JFrame {
 			game = new GUIInGame();
 		}
 		return game;
+	}
+	
+	public void advanceWord(InGameLogic gameLogic, String[] subParagraphs) {
+		String[] wordArr = paragraphPane.getText().split(" ");
+		int numWordsEntered = gameLogic.getNumWordsEntered();
+		if(subParagraphs.length == 2) {
+			if(subParagraphs[1] == "") {
+				paragraphPane.setText(subParagraphs[0]);
+				StyledDocument doc = paragraphPane.getStyledDocument();
+				SimpleAttributeSet attr = new SimpleAttributeSet();
+				StyleConstants.setBold(attr, true);
+				try {
+					doc.insertString(0, wordArr[numWordsEntered], attr);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
+			}else {
+				paragraphPane.setText(subParagraphs[0] + " " + subParagraphs[1]);
+				StyledDocument doc = paragraphPane.getStyledDocument();
+				SimpleAttributeSet attr = new SimpleAttributeSet();
+				StyleConstants.setBold(attr, true);
+				try {
+					doc.insertString(subParagraphs[0].length(), wordArr[numWordsEntered], attr);
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
     
 	/**
