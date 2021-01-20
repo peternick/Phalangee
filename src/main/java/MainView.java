@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -5,6 +6,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.*;
 import javax.swing.text.Highlighter.HighlightPainter;
+import phalangee.model.*;
 /**
  * The main view of the application that displays the GUI
  *    

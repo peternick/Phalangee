@@ -1,7 +1,9 @@
+package phalangee.model;
 import java.io.FileReader;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
 
 /**
  * A static class that provides random paragraphs for the user to type out in order to test how fast they are able to type
@@ -18,7 +20,8 @@ public class ParagraphGenerator {
 		String paragraph = "";
 		try {
 			String cd_abs_path = System.getProperty("user.dir");
-			Path paragraphs_dir = Paths.get(cd_abs_path, "/resources/paragraph_files/paragraph" + randNum);
+			Path paragraphs_dir = Paths.get(cd_abs_path, "/src/main/resources/paragraph_files/paragraph" + randNum);
+//			System.out.println(Files.exists(paragraphs_dir));
 			FileReader paragraph_reader = new FileReader(paragraphs_dir.toString());
 			BufferedReader br = new BufferedReader(paragraph_reader);
 			String line = br.readLine();

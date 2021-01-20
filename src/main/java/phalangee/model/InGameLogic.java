@@ -26,7 +26,7 @@ public class InGameLogic {
 	private String[] paragraphs;
 	
 	
-	private InGameLogic(GUIInGame game){
+	public InGameLogic(GUIInGame game){
 		
 		this.fullParagraphStr = game.getParagraph().getText();
 		this.typedWord = game.getInputField().getText();

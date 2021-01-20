@@ -1,4 +1,5 @@
 package phalangee.view;
+import phalangee.controller.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -11,8 +12,8 @@ import javax.swing.text.Highlighter.HighlightPainter;
 public class GUILogin extends javax.swing.JFrame{
 	
 	private static GUILogin loginInstance;
+	private TextController controller;
 	private javax.swing.JPanel BottomPanel;
-    private javax.swing.JButton CreateAccountBtn;
     private javax.swing.JPanel LeftPanel;
     private javax.swing.JPanel MPBP;
     private javax.swing.JSeparator MPLblSep;
@@ -27,6 +28,7 @@ public class GUILogin extends javax.swing.JFrame{
     private javax.swing.JSeparator TPBPSep;
     private javax.swing.JSeparator TPTPSep;
     private javax.swing.JPanel TopPanel;
+    private javax.swing.JButton createAccountBtn;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordLbl;
@@ -36,16 +38,21 @@ public class GUILogin extends javax.swing.JFrame{
 	/**
      * Creates new form GUIUserLogin
      */
-    public GUILogin() {
+    public GUILogin(TextController controller) {
+    	this.controller = controller;
         initComponents();
     }
     
-    public static GUILogin getInstance() {
+    public static GUILogin getInstance(TextController controller) {
 		if(loginInstance == null) {
-			loginInstance = new GUILogin();
+			loginInstance = new GUILogin(controller);
 		}
 		return loginInstance;
 	}
+    
+    public JButton getCreateAccountBtn() {
+    	return this.createAccountBtn;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +66,7 @@ public class GUILogin extends javax.swing.JFrame{
         LeftPanel = new javax.swing.JPanel();
         TopPanel = new javax.swing.JPanel();
         TPTPSep = new javax.swing.JSeparator();
-        CreateAccountBtn = new javax.swing.JButton();
+        createAccountBtn = new javax.swing.JButton();
         TPBPSep = new javax.swing.JSeparator();
         RightPanel = new javax.swing.JPanel();
         BottomPanel = new javax.swing.JPanel();
@@ -100,9 +107,14 @@ public class GUILogin extends javax.swing.JFrame{
         TopPanel.setLayout(new javax.swing.BoxLayout(TopPanel, javax.swing.BoxLayout.Y_AXIS));
         TopPanel.add(TPTPSep);
 
-        CreateAccountBtn.setText("Create Account");
-        CreateAccountBtn.setAlignmentX(0.55F);
-        TopPanel.add(CreateAccountBtn);
+        createAccountBtn.setText("Create Account");
+        createAccountBtn.setAlignmentX(0.55F);
+        createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                createAccountBtnMouseClicked(evt);
+            }
+        });
+        TopPanel.add(createAccountBtn);
 
         TPBPSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
         TPBPSep.setMaximumSize(new java.awt.Dimension(0, 32767));
@@ -198,6 +210,11 @@ public class GUILogin extends javax.swing.JFrame{
         loginBtn.setText("Login");
         loginBtn.setAlignmentX(0.5F);
         loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginBtnMouseClicked(evt);
+            }
+        });
         MPBP.add(loginBtn);
 
         MiddlePanel.add(MPBP, java.awt.BorderLayout.PAGE_END);
@@ -218,11 +235,6 @@ public class GUILogin extends javax.swing.JFrame{
 
         passwordInput.setMaximumSize(new java.awt.Dimension(200, 300));
         passwordInput.setPreferredSize(new java.awt.Dimension(90, 30));
-        passwordInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordInputActionPerformed(evt);
-            }
-        });
         MPMPInputs.add(passwordInput);
 
         MPMPSep2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -235,10 +247,15 @@ public class GUILogin extends javax.swing.JFrame{
         getContentPane().add(MiddlePanel, java.awt.BorderLayout.CENTER);
 
         pack();
-    }// </editor-fold>   
+    }// </editor-fold>
 	
     
-    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {                                      
         // TODO add your handling code here:
+    	
     } 
+    
+    private void createAccountBtnMouseClicked(java.awt.event.MouseEvent evt) {                                              
+        this.controller.listenCreateAccountBtn();
+    }  
 }

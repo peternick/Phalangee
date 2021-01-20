@@ -6,7 +6,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import phalangee.model.InGameLogic;
+import phalangee.model.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -54,7 +54,7 @@ public class GUIInGame extends javax.swing.JFrame {
     /**
      * Creates new form GUIInGame
      */
-    private GUIInGame() {
+    public GUIInGame() {
     	
         initComponents();
         

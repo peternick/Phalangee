@@ -1,3 +1,4 @@
+package phalangee.controller;
 import java.awt.*;
 import javax.swing.*;
 

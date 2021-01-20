@@ -1,4 +1,6 @@
+package phalangee.controller;
 import phalangee.view.*;
+import phalangee.model.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,7 +14,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import phalangee.model.*;
+
 
 /**
  * The controller for the Phalangee project; handles manipulations to the components of the main window
@@ -30,6 +32,10 @@ public class TextController {
 	private JTextPane paragraph;
 	private JTextField typedWord;
 	private String[] wordArr;
+	private JButton createAccountBtn;
+	private JButton confirmAccountBtn;
+	private JTextField newUsernameTxt;
+	private JTextField newPsswdTxt;
 	
 //	private static int numWordsEntered;
 //	private static boolean typingStarted = false;
@@ -45,13 +51,21 @@ public class TextController {
 	 * @param mainView the view of the application consisting of a JFrame containing JComponents
 	 */
 	public TextController() {
+		
+		this.loginWin = new GUILogin(this);
+		this.inGameWin = new GUIInGame();
+		this.createAccountWin = new GUICreateAccount();
+		this.inGameLogic = new InGameLogic(this.inGameWin);
+		
 		this.paragraph = inGameWin.getParagraph();
 		this.typedWord = inGameWin.getInputField();
 		this.wordArr = paragraph.getText().split(" ");
-		this.loginWin = GUILogin.getInstance();
-		this.inGameWin = GUIInGame.getInstance();
-		this.createAccountWin = GUICreateAccount.getInstance();
-		this.inGameLogic = inGameLogic.getInstance(this.inGameWin);
+		
+		this.createAccountBtn = this.loginWin.getCreateAccountBtn();
+		
+		this.confirmAccountBtn = this.createAccountWin.getConfBtn();
+		this.newUsernameTxt = this.createAccountWin.getUsernameField();
+		this.newPsswdTxt = this.createAccountWin.getPasswordField();
 		
 //		fullParagraphStr = paragraph.getText();
 //		numWordsEntered = 0;
@@ -60,9 +74,41 @@ public class TextController {
 		
 	}
 	
-	
+	/*
+	 * opens up the Login Window for the user to interact with
+	 */
 	public void start() {
 		this.loginWin.setVisible(true);
+	}
+	
+	
+	public void listenCreateAccountBtn(){
+		createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	loginWin.setVisible(false);
+		    	createAccountWin.setVisible(true);
+		    }
+		});
+	}
+	
+	public void listenConfirmAccountBtn(){
+		confirmAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	int createAccountResultCode = PhalangeeMongoDB.createAccount(newUsernameTxt.getText(), newPsswdTxt.getText());
+		    	
+		    	if(createAccountResultCode == 1) {
+		    		loginWin.setVisible(true);
+			    	createAccountWin.setVisible(false);
+		    	}else if(createAccountResultCode == 0) {
+		    		createAccountWin.setUserInputLbl("An account with the same user name already exists");
+		    	} else if(createAccountResultCode == -1) {
+		    		createAccountWin.setUserInputLbl("Invalid user name or password supplied");
+		    	}else {
+		    		System.out.println("ERROR: createAccountResultCode HAS AN INCORRECT VALUE");
+		    	}
+		    	
+		    }
+		});
 	}
 	
 	/*
@@ -133,6 +179,8 @@ public class TextController {
 			}
 		});
 	}
+	
+	
 	
 	
 	

@@ -10,8 +10,9 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 public class GUICreateAccount extends javax.swing.JFrame{
 
+	
 	private static GUICreateAccount createAccountInstance;
-	private javax.swing.JButton MPBPConfBtn;
+	private javax.swing.JButton MPBPConfBtn;  //TODO change this variable to confBtn instead of MPBPconfbtn
     private javax.swing.JPanel MPBPConfBtnPanel;
     private javax.swing.JPanel MPLPLbls;
     private javax.swing.JLabel MPLPPsswdLbl;
@@ -24,7 +25,7 @@ public class GUICreateAccount extends javax.swing.JFrame{
     private javax.swing.JPanel MPMPtxtFields;
     private javax.swing.JPanel MPRP;
     private javax.swing.JPanel MPTP;
-    private javax.swing.JLabel TPPsswdWarningLbl;
+    private javax.swing.JLabel TPuserInputLbl;
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPanel leftPanel;
@@ -45,6 +46,24 @@ public class GUICreateAccount extends javax.swing.JFrame{
 		}
 		return createAccountInstance;
 	}
+	
+	public JButton getConfBtn() {
+		return this.MPBPConfBtn;
+	}
+	
+	public JTextField getUsernameField() {
+		return this.MPMPTxtField1;
+	}
+	
+	public JTextField getPasswordField() {
+		return this.MPMPTxtField1;
+	}
+	public JLabel getUserInputLbl() {
+		return this.TPuserInputLbl;
+	}
+	public void setUserInputLbl(String label) {
+		this.TPuserInputLbl.setText(label);
+	}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +76,7 @@ public class GUICreateAccount extends javax.swing.JFrame{
         leftPanel = new javax.swing.JPanel();
         topPanel = new javax.swing.JPanel();
         jSeparator4 = new javax.swing.JSeparator();
-        TPPsswdWarningLbl = new javax.swing.JLabel();
+        TPuserInputLbl = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
         bottomPanel = new javax.swing.JPanel();
         middlePanel = new javax.swing.JPanel();
@@ -102,11 +121,11 @@ public class GUICreateAccount extends javax.swing.JFrame{
         jSeparator4.setPreferredSize(new java.awt.Dimension(0, 10));
         topPanel.add(jSeparator4);
 
-        TPPsswdWarningLbl.setForeground(new java.awt.Color(47, 47, 47));
-        TPPsswdWarningLbl.setText("*Password must have a capital letter and a number");
-        TPPsswdWarningLbl.setAlignmentX(0.5F);
-        TPPsswdWarningLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        topPanel.add(TPPsswdWarningLbl);
+        TPuserInputLbl.setForeground(new java.awt.Color(47, 47, 47));
+        TPuserInputLbl.setText("*Password must have a capital letter and a number");
+        TPuserInputLbl.setAlignmentX(0.5F);
+        TPuserInputLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        topPanel.add(TPuserInputLbl);
 
         getContentPane().add(topPanel, java.awt.BorderLayout.PAGE_START);
 
@@ -228,4 +247,8 @@ public class GUICreateAccount extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>    
+    
+    private void MPBPConfBtnMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        // TODO add your handling code here:
+    }   
 }
