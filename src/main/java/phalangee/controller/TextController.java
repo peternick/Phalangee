@@ -54,7 +54,7 @@ public class TextController {
 		
 		this.loginWin = new GUILogin(this);
 		this.inGameWin = new GUIInGame();
-		this.createAccountWin = new GUICreateAccount();
+		this.createAccountWin = new GUICreateAccount(this);
 		this.inGameLogic = new InGameLogic(this.inGameWin);
 		
 		this.paragraph = inGameWin.getParagraph();
@@ -83,32 +83,24 @@ public class TextController {
 	
 	
 	public void listenCreateAccountBtn(){
-		createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	loginWin.setVisible(false);
-		    	createAccountWin.setVisible(true);
-		    }
-		});
+		loginWin.setVisible(false);
+    	createAccountWin.setVisible(true);
 	}
 	
 	public void listenConfirmAccountBtn(){
-		confirmAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-		    public void mouseClicked(java.awt.event.MouseEvent evt) {
-		    	int createAccountResultCode = PhalangeeMongoDB.createAccount(newUsernameTxt.getText(), newPsswdTxt.getText());
-		    	
-		    	if(createAccountResultCode == 1) {
-		    		loginWin.setVisible(true);
-			    	createAccountWin.setVisible(false);
-		    	}else if(createAccountResultCode == 0) {
-		    		createAccountWin.setUserInputLbl("An account with the same user name already exists");
-		    	} else if(createAccountResultCode == -1) {
-		    		createAccountWin.setUserInputLbl("Invalid user name or password supplied");
-		    	}else {
-		    		System.out.println("ERROR: createAccountResultCode HAS AN INCORRECT VALUE");
-		    	}
-		    	
-		    }
-		});
+
+    	int createAccountResultCode = PhalangeeMongoDB.createAccount(newUsernameTxt.getText(), newPsswdTxt.getText());
+    	
+    	if(createAccountResultCode == 1) {
+    		loginWin.setVisible(true);
+	    	createAccountWin.setVisible(false);
+    	}else if(createAccountResultCode == 0) {
+    		createAccountWin.setUserInputLbl("An account with the same user name already exists");
+    	} else if(createAccountResultCode == -1) {
+    		createAccountWin.setUserInputLbl("Invalid user name or password supplied");
+    	}else {
+    		System.out.println("ERROR: createAccountResultCode HAS AN INCORRECT VALUE");
+    	}
 	}
 	
 	/*

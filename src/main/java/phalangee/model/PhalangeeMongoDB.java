@@ -18,7 +18,8 @@ public class PhalangeeMongoDB {
 	private static MongoClient client = new MongoClient(clientURI);
 	
 	private static MongoDatabase mgdb = client.getDatabase("PhalangeeDB");
-	private static MongoCollection coll = mgdb.getCollection("PhalangeeColl");
+	private static MongoCollection gameInfo = mgdb.getCollection("GameInfo");
+	private static MongoCollection userInfo = mgdb.getCollection("UserSignIn");
 	
 	/*
 	 * returns a code to represent the result of a user submitting their user name and password. There are three codes:
@@ -34,7 +35,7 @@ public class PhalangeeMongoDB {
 		if(usernameCode == 1 && validPassword) {
 			LocalDate currDate = LocalDate.now();
 			boolean dateObjPresent = false;
-			for(Object d : coll.find()) {
+			for(Object d : gameInfo.find()) {
 				if(((Document) d).containsValue(currDate)) {
 					dateObjPresent = true;
 					break;
@@ -44,7 +45,7 @@ public class PhalangeeMongoDB {
 			Document dateIDDoc = new Document("date", currDate);
 			Document userInfoDoc = new Document(username, password);
 			if(dateObjPresent) {
-				dateIDDoc = (Document) coll.find(dateIDDoc).first();
+				dateIDDoc = (Document) gameInfo.find(dateIDDoc).first();
 			}
 			userInfoDoc.append("gameData", null);
 			ArrayList userInfoList = new ArrayList();
@@ -52,8 +53,9 @@ public class PhalangeeMongoDB {
 			
 			dateIDDoc.append("High Score", 0);
 			dateIDDoc.append("game_docs", userInfoList);
-			return 1;
+			gameInfo.insertOne(dateIDDoc);
 			
+			return 1;
 		}else if(usernameCode == 0 && validPassword){
 			return 0;
 		}else {
@@ -77,29 +79,38 @@ public class PhalangeeMongoDB {
 			return -1;
 		}
 		
-		ArrayList games_arr = new ArrayList();
 		boolean userFound = false;
-		for(Object docObj : coll.find()) {
-			if(((Document) docObj).containsKey("game_docs")) {
-				games_arr = (ArrayList) ((Document) docObj).get("game_docs");
-				
-				for(Object gameObj : games_arr) {
-					Document game = (Document) gameObj;
-					if(game.containsKey(username)) {
-						userFound = true;
-						return 0;
-					}
-				}
+		for(Object docObj : userInfo.find()) {
+			if(((Document) docObj).containsKey(username)) {
+				userFound = true;
+				return 0;
 				
 			}
+			
 		}
-		return 1;
+//		ArrayList games_arr = new ArrayList();
+//		boolean userFound = false;
+//		for(Object docObj : gameInfo.find()) {
+//			if(((Document) docObj).containsKey("game_docs")) {
+//				games_arr = (ArrayList) ((Document) docObj).get("game_docs");
+//				
+//				for(Object gameObj : games_arr) {
+//					Document game = (Document) gameObj;
+//					if(game.containsKey(username)) {
+//						userFound = true;
+//						return 0;
+//					}
+//				}
+//				
+//			}
+//		}
+//		return 1;
 	}
 	
 	
 	private static boolean verifyPassword(String psswd) {
 		
-		String re = "(\\w)*[A-Z]+(\\w)*(\\d)+(\\w)*";
+		String re = "((\\w)*[A-Z]+(\\w)*(\\d)+(\\w)*)||((\\w)*(\\d)+(\\w)*[A-Z]+(\\w)*)";
 		Pattern pat = Pattern.compile(re);
 		Matcher mat = pat.matcher(psswd);
 		if(mat.matches()) {
@@ -107,6 +118,11 @@ public class PhalangeeMongoDB {
 		}else {
 			return false;
 		}
+	}
+	
+	
+	public static int accountLookup(String username, String password) {
+		
 	}
 	
 }

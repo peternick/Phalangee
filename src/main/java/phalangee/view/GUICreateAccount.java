@@ -7,12 +7,16 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.*;
 import javax.swing.text.Highlighter.HighlightPainter;
 
+import phalangee.controller.TextController;
+import phalangee.model.PhalangeeMongoDB;
+
 
 public class GUICreateAccount extends javax.swing.JFrame{
 
 	
 	private static GUICreateAccount createAccountInstance;
-	private javax.swing.JButton MPBPConfBtn;  //TODO change this variable to confBtn instead of MPBPconfbtn
+	private TextController controller;  
+	private javax.swing.JButton MPBPConfBtn;//TODO change this variable to confBtn instead of MPBPconfbtn
     private javax.swing.JPanel MPBPConfBtnPanel;
     private javax.swing.JPanel MPLPLbls;
     private javax.swing.JLabel MPLPPsswdLbl;
@@ -21,7 +25,6 @@ public class GUICreateAccount extends javax.swing.JFrame{
     private javax.swing.JSeparator MPMPSep1;
     private javax.swing.JSeparator MPMPSep2;
     private javax.swing.JTextField MPMPTxtField1;
-    private javax.swing.JTextField MPMPTxtField2;
     private javax.swing.JPanel MPMPtxtFields;
     private javax.swing.JPanel MPRP;
     private javax.swing.JPanel MPTP;
@@ -30,22 +33,24 @@ public class GUICreateAccount extends javax.swing.JFrame{
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JPanel middlePanel;
+    private javax.swing.JPasswordField psswdTxtField;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JPanel topPanel;
 	
 	/**
      * Creates new form GUIUserLogin
      */
-	public GUICreateAccount() {
+	public GUICreateAccount(TextController controller) {
+		this.controller = controller;
         initComponents();
     }
 
-	public static GUICreateAccount getInstance() {
-		if(createAccountInstance == null) {
-			createAccountInstance = new GUICreateAccount();
-		}
-		return createAccountInstance;
-	}
+//	public static GUICreateAccount getInstance() {
+//		if(createAccountInstance == null) {
+//			createAccountInstance = new GUICreateAccount();
+//		}
+//		return createAccountInstance;
+//	}
 	
 	public JButton getConfBtn() {
 		return this.MPBPConfBtn;
@@ -56,7 +61,7 @@ public class GUICreateAccount extends javax.swing.JFrame{
 	}
 	
 	public JTextField getPasswordField() {
-		return this.MPMPTxtField1;
+		return this.psswdTxtField;
 	}
 	public JLabel getUserInputLbl() {
 		return this.TPuserInputLbl;
@@ -91,7 +96,7 @@ public class GUICreateAccount extends javax.swing.JFrame{
         MPMPtxtFields = new javax.swing.JPanel();
         MPMPTxtField1 = new javax.swing.JTextField();
         MPMPSep1 = new javax.swing.JSeparator();
-        MPMPTxtField2 = new javax.swing.JTextField();
+        psswdTxtField = new javax.swing.JPasswordField();
         MPMPSep2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,6 +220,11 @@ public class GUICreateAccount extends javax.swing.JFrame{
         MPBPConfBtn.setText("Confirm");
         MPBPConfBtn.setAlignmentX(0.5F);
         MPBPConfBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        MPBPConfBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		    	controller.listenConfirmAccountBtn();
+		    }
+		});
         MPBPConfBtnPanel.add(MPBPConfBtn);
 
         middlePanel.add(MPBPConfBtnPanel, java.awt.BorderLayout.PAGE_END);
@@ -233,8 +243,9 @@ public class GUICreateAccount extends javax.swing.JFrame{
         MPMPSep1.setPreferredSize(new java.awt.Dimension(0, 10));
         MPMPtxtFields.add(MPMPSep1);
 
-        MPMPTxtField2.setMaximumSize(new java.awt.Dimension(200, 300));
-        MPMPtxtFields.add(MPMPTxtField2);
+        psswdTxtField.setMaximumSize(new java.awt.Dimension(150, 200));
+        psswdTxtField.setPreferredSize(new java.awt.Dimension(90, 30));
+        MPMPtxtFields.add(psswdTxtField);
 
         MPMPSep2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         MPMPSep2.setMaximumSize(new java.awt.Dimension(0, 500));
@@ -248,7 +259,4 @@ public class GUICreateAccount extends javax.swing.JFrame{
         pack();
     }// </editor-fold>    
     
-    private void MPBPConfBtnMouseClicked(java.awt.event.MouseEvent evt) {                                         
-        // TODO add your handling code here:
-    }   
 }

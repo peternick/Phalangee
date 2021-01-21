@@ -111,7 +111,7 @@ public class GUILogin extends javax.swing.JFrame{
         createAccountBtn.setAlignmentX(0.55F);
         createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                createAccountBtnMouseClicked(evt);
+            	controller.listenCreateAccountBtn();
             }
         });
         TopPanel.add(createAccountBtn);
@@ -255,7 +255,11 @@ public class GUILogin extends javax.swing.JFrame{
     	
     } 
     
-    private void createAccountBtnMouseClicked(java.awt.event.MouseEvent evt) {                                              
-        this.controller.listenCreateAccountBtn();
-    }  
+//    private void createAccountBtnMouseClicked(java.awt.event.MouseEvent evt) {                                              
+//    	createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+//		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+//		    	
+//		    }
+//		});
+//    }  
 }
