@@ -1,4 +1,7 @@
 package phalangee.view;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
@@ -6,6 +9,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import phalangee.controller.TextController;
 import phalangee.model.*;
 
 /*
@@ -20,7 +24,8 @@ import phalangee.model.*;
  */
 public class GUIInGame extends javax.swing.JFrame {
 
-	private static GUIInGame game;
+	private GUIInGame game;
+	private TextController controller;
 	private javax.swing.JPanel BPBPSep;
     private javax.swing.JSeparator BPLPBPSep;
     private javax.swing.JSeparator BPLPLPSep;
@@ -54,8 +59,8 @@ public class GUIInGame extends javax.swing.JFrame {
     /**
      * Creates new form GUIInGame
      */
-    public GUIInGame() {
-    	
+    public GUIInGame(TextController controller) {
+    	this.controller = controller;
         initComponents();
         
     }
@@ -99,9 +104,9 @@ public class GUIInGame extends javax.swing.JFrame {
 		TPTimeLbl.setText("timer: " + time); 
 		
 	}
-	public static GUIInGame getInstance() {
+	public GUIInGame getInstance() {
 		if(game == null) {
-			game = new GUIInGame();
+			game = new GUIInGame(controller);
 		}
 		return game;
 	}
@@ -299,9 +304,22 @@ public class GUIInGame extends javax.swing.JFrame {
         typeField.setMaximumSize(new java.awt.Dimension(150, 20));
         typeField.setMinimumSize(new java.awt.Dimension(100, 24));
         typeField.setPreferredSize(new java.awt.Dimension(100, 24));
+        typeField.addKeyListener(new KeyListener() {
+			//invokes the enterWord method of the InGameLogic class to signify the end of a user typed word
+			public void keyPressed(KeyEvent arg0) {
+				controller.txt_input_handler();
+			}
+			public void keyReleased(KeyEvent e) {
+
+			}
+			public void keyTyped(KeyEvent e) {
+
+			}
+			
+		});
         typeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeFieldActionPerformed(evt);
+                controller.listenForStartInput();
             }
         });
         BPMPtxtArea.add(typeField);
@@ -333,10 +351,7 @@ public class GUIInGame extends javax.swing.JFrame {
         
         paragraphPane.setText(ParagraphGenerator.generate_paragraph());
     }// </editor-fold>  
-    
-    private void typeFieldActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                              
+                               
 
    
     

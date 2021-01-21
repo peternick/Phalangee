@@ -33,27 +33,28 @@ public class PhalangeeMongoDB {
 		boolean validPassword = verifyPassword(password);
 		
 		if(usernameCode == 1 && validPassword) {
-			LocalDate currDate = LocalDate.now();
-			boolean dateObjPresent = false;
-			for(Object d : gameInfo.find()) {
-				if(((Document) d).containsValue(currDate)) {
-					dateObjPresent = true;
-					break;
-				}
-			}
+//			LocalDate currDate = LocalDate.now();
+//			boolean dateObjPresent = false;
+//			for(Object d : gameInfo.find()) {
+//				if(((Document) d).containsValue(currDate)) {
+//					dateObjPresent = true;
+//					break;
+//				}
+//			}
 			
-			Document dateIDDoc = new Document("date", currDate);
+//			Document dateIDDoc = new Document("date", currDate);
+//			if(dateObjPresent) {
+//				dateIDDoc = (Document) gameInfo.find(dateIDDoc).first();
+//			}
+//			userInfoDoc.append("gameData", null);
+//			ArrayList userInfoList = new ArrayList();
+//			userInfoList.add(userInfoDoc);
+//			
+//			dateIDDoc.append("High Score", 0);
+//			dateIDDoc.append("game_docs", userInfoList);
+			
 			Document userInfoDoc = new Document(username, password);
-			if(dateObjPresent) {
-				dateIDDoc = (Document) gameInfo.find(dateIDDoc).first();
-			}
-			userInfoDoc.append("gameData", null);
-			ArrayList userInfoList = new ArrayList();
-			userInfoList.add(userInfoDoc);
-			
-			dateIDDoc.append("High Score", 0);
-			dateIDDoc.append("game_docs", userInfoList);
-			gameInfo.insertOne(dateIDDoc);
+			userInfo.insertOne(userInfoDoc);
 			
 			return 1;
 		}else if(usernameCode == 0 && validPassword){
@@ -88,6 +89,7 @@ public class PhalangeeMongoDB {
 			}
 			
 		}
+		return 1;
 //		ArrayList games_arr = new ArrayList();
 //		boolean userFound = false;
 //		for(Object docObj : gameInfo.find()) {
@@ -121,8 +123,14 @@ public class PhalangeeMongoDB {
 	}
 	
 	
-	public static int accountLookup(String username, String password) {
+	public static boolean userLogin(String username, String password) {
 		
+		Document foundUserInfoDoc = (Document) userInfo.find(new Document(username, password)).first();
+		if(foundUserInfoDoc.get(username).equals(password)){
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 }

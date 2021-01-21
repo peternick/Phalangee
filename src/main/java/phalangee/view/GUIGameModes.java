@@ -1,6 +1,6 @@
 package phalangee.view;
 
-
+import phalangee.controller.TextController;
 
 /**
  *
@@ -8,6 +8,7 @@ package phalangee.view;
  */
 public class GUIGameModes extends javax.swing.JFrame {
 
+	private TextController controller;
 	private javax.swing.JPanel BottomPanel;
     private javax.swing.JPanel BtnsPanel;
     private javax.swing.JPanel LeftPanel;
@@ -25,7 +26,8 @@ public class GUIGameModes extends javax.swing.JFrame {
     /**
      * Creates new form GUIMainMenu
      */
-    public GUIGameModes() {
+    public GUIGameModes(TextController controller) {
+    	this.controller = controller;
         initComponents();
     }
 
@@ -56,6 +58,7 @@ public class GUIGameModes extends javax.swing.JFrame {
         setTitle("Phalangee - Game Modes");
         setLocation(new java.awt.Point(200, 200));
         setMinimumSize(new java.awt.Dimension(300, 350));
+        setPreferredSize(new java.awt.Dimension(300, 300));
         setResizable(false);
 
         BtnsPanel.setMaximumSize(new java.awt.Dimension(150, 252));
@@ -73,9 +76,9 @@ public class GUIGameModes extends javax.swing.JFrame {
 
         normalBtn.setText("Normal");
         normalBtn.setAlignmentX(0.5F);
-        normalBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                normalBtnActionPerformed(evt);
+        normalBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                controller.listenNormalGamemodeBtn();
             }
         });
         BtnsPanel.add(normalBtn);
@@ -90,6 +93,11 @@ public class GUIGameModes extends javax.swing.JFrame {
 
         blindBtn.setText("Blind");
         blindBtn.setAlignmentX(0.5F);
+        blindBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                blindBtnMouseClicked(evt);
+            }
+        });
         BtnsPanel.add(blindBtn);
 
         btnSep3.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -99,6 +107,11 @@ public class GUIGameModes extends javax.swing.JFrame {
 
         quizBtn.setText("Quiz");
         quizBtn.setAlignmentX(0.5F);
+        quizBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quizBtnMouseClicked(evt);
+            }
+        });
         BtnsPanel.add(quizBtn);
 
         btnSep4.setMaximumSize(new java.awt.Dimension(0, 40));
@@ -106,6 +119,11 @@ public class GUIGameModes extends javax.swing.JFrame {
 
         backBtn.setText("Back");
         backBtn.setAlignmentX(0.5F);
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
         BtnsPanel.add(backBtn);
 
         getContentPane().add(BtnsPanel, java.awt.BorderLayout.CENTER);
@@ -115,11 +133,9 @@ public class GUIGameModes extends javax.swing.JFrame {
         getContentPane().add(LeftPanel, java.awt.BorderLayout.LINE_START);
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>                    
 
-    private void normalBtnActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                              
+                            
                                     
 
                      

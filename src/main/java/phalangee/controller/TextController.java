@@ -26,6 +26,7 @@ public class TextController {
 	private static GUILogin loginWin;
 	private static GUIInGame inGameWin;
 	private static GUICreateAccount createAccountWin;
+	private static GUIGameModes gameModesWin;
 	private static CreateAccountLogic createAccountLogic;
 	private static InGameLogic inGameLogic;
 	private static LoginLogic loginLogic;
@@ -36,6 +37,9 @@ public class TextController {
 	private JButton confirmAccountBtn;
 	private JTextField newUsernameTxt;
 	private JTextField newPsswdTxt;
+	private JTextField userLoginTxt;
+	private JPasswordField psswdTxt;
+	
 	
 //	private static int numWordsEntered;
 //	private static boolean typingStarted = false;
@@ -53,8 +57,9 @@ public class TextController {
 	public TextController() {
 		
 		this.loginWin = new GUILogin(this);
-		this.inGameWin = new GUIInGame();
+		this.inGameWin = new GUIInGame(this);
 		this.createAccountWin = new GUICreateAccount(this);
+		this.gameModesWin = new GUIGameModes(this);
 		this.inGameLogic = new InGameLogic(this.inGameWin);
 		
 		this.paragraph = inGameWin.getParagraph();
@@ -66,6 +71,8 @@ public class TextController {
 		this.confirmAccountBtn = this.createAccountWin.getConfBtn();
 		this.newUsernameTxt = this.createAccountWin.getUsernameField();
 		this.newPsswdTxt = this.createAccountWin.getPasswordField();
+		this.userLoginTxt = this.loginWin.getUsernameInputTxt();
+		this.psswdTxt = this.loginWin.getPasswordInputTxt();
 		
 //		fullParagraphStr = paragraph.getText();
 //		numWordsEntered = 0;
@@ -101,6 +108,19 @@ public class TextController {
     	}else {
     		System.out.println("ERROR: createAccountResultCode HAS AN INCORRECT VALUE");
     	}
+	}
+	public void listenLoginBtn() {
+		boolean validLogin = PhalangeeMongoDB.userLogin(userLoginTxt.getText(), String.valueOf(psswdTxt.getPassword()));
+		if(validLogin) {
+			loginWin.setVisible(false);
+			gameModesWin.setVisible(true);
+		}
+	}
+	
+	
+	public void listenNormalGamemodeBtn() {
+		gameModesWin.setVisible(false);
+		inGameWin.setVisible(true);
 	}
 	
 	/*

@@ -11,7 +11,7 @@ import javax.swing.text.Highlighter.HighlightPainter;
 
 public class GUILogin extends javax.swing.JFrame{
 	
-	private static GUILogin loginInstance;
+	private GUILogin loginInstance;
 	private TextController controller;
 	private javax.swing.JPanel BottomPanel;
     private javax.swing.JPanel LeftPanel;
@@ -43,7 +43,7 @@ public class GUILogin extends javax.swing.JFrame{
         initComponents();
     }
     
-    public static GUILogin getInstance(TextController controller) {
+    public GUILogin getInstance(TextController controller) {
 		if(loginInstance == null) {
 			loginInstance = new GUILogin(controller);
 		}
@@ -52,6 +52,14 @@ public class GUILogin extends javax.swing.JFrame{
     
     public JButton getCreateAccountBtn() {
     	return this.createAccountBtn;
+    }
+    
+    public JTextField getUsernameInputTxt() {
+    	return this.usernameInput;
+    }
+    
+    public JPasswordField getPasswordInputTxt() {
+    	return this.passwordInput;
     }
 
     /**
@@ -212,7 +220,7 @@ public class GUILogin extends javax.swing.JFrame{
         loginBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginBtnMouseClicked(evt);
+                controller.listenLoginBtn();
             }
         });
         MPBP.add(loginBtn);
@@ -249,11 +257,7 @@ public class GUILogin extends javax.swing.JFrame{
         pack();
     }// </editor-fold>
 	
-    
-    private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {                                      
-        // TODO add your handling code here:
-    	
-    } 
+  
     
 //    private void createAccountBtnMouseClicked(java.awt.event.MouseEvent evt) {                                              
 //    	createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {
