@@ -101,8 +101,9 @@ public class GUICreateAccount extends javax.swing.JFrame{
         MPMPSep2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phalangee - Login");
+        setTitle("Phalangee - Create Account");
         setMinimumSize(new java.awt.Dimension(400, 300));
+        centreWindow(this);
 
         leftPanel.setPreferredSize(new java.awt.Dimension(30, 120));
 
@@ -259,5 +260,14 @@ public class GUICreateAccount extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>    
+    
+    
+    public void centreWindow(JFrame frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(frame.getWidth());
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }
     
 }

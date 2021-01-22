@@ -95,6 +95,7 @@ public class GUILogin extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 300));
+        centreWindow(this);
 
         LeftPanel.setPreferredSize(new java.awt.Dimension(30, 120));
 
@@ -257,7 +258,13 @@ public class GUILogin extends javax.swing.JFrame{
         pack();
     }// </editor-fold>
 	
-  
+    public void centreWindow(JFrame frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(frame.getWidth());
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }
     
 //    private void createAccountBtnMouseClicked(java.awt.event.MouseEvent evt) {                                              
 //    	createAccountBtn.addMouseListener(new java.awt.event.MouseAdapter() {

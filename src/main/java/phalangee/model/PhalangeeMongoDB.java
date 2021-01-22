@@ -33,25 +33,7 @@ public class PhalangeeMongoDB {
 		boolean validPassword = verifyPassword(password);
 		
 		if(usernameCode == 1 && validPassword) {
-//			LocalDate currDate = LocalDate.now();
-//			boolean dateObjPresent = false;
-//			for(Object d : gameInfo.find()) {
-//				if(((Document) d).containsValue(currDate)) {
-//					dateObjPresent = true;
-//					break;
-//				}
-//			}
-			
-//			Document dateIDDoc = new Document("date", currDate);
-//			if(dateObjPresent) {
-//				dateIDDoc = (Document) gameInfo.find(dateIDDoc).first();
-//			}
-//			userInfoDoc.append("gameData", null);
-//			ArrayList userInfoList = new ArrayList();
-//			userInfoList.add(userInfoDoc);
-//			
-//			dateIDDoc.append("High Score", 0);
-//			dateIDDoc.append("game_docs", userInfoList);
+
 			
 			Document userInfoDoc = new Document(username, password);
 			userInfo.insertOne(userInfoDoc);
@@ -130,6 +112,40 @@ public class PhalangeeMongoDB {
 			return true;
 		}else {
 			return false;
+		}
+	}
+	
+	public static void recordEndGameData(String user, int wpm, String gameMode, int mistypedWords) {
+		LocalDate currDate = LocalDate.now();
+		boolean dateObjPresent = false;
+		for(Object d : gameInfo.find()) {
+			if(((Document) d).containsValue(currDate)) {
+				dateObjPresent = true;
+				break;
+			}
+		}
+		
+		if(dateObjPresent) {
+			
+		}else {
+			Document newDoc = new Document("date", currDate);
+			ArrayList gameDocObjsList = new ArrayList();
+			ArrayList userGameInfoList = new ArrayList();
+			
+			Document gameInfoDoc = new Document("GameID", gameMode);
+			gameInfoDoc.append("WPM", wpm);
+			gameInfoDoc.append("Mistyped", mistypedWords);
+			gameDocObjsList.add(gameInfoDoc);
+			
+			Document userGameInfoDoc = new Document(user, gameDocObjsList);
+			userGameInfoDoc.append("Highest WPM", wpm);
+			
+			userGameInfoList.add(userGameInfoDoc);
+			
+			newDoc.append("High Score", wpm);
+			newDoc.append("gameData", userGameInfoList);
+			
+			gameInfo.insertOne(newDoc);
 		}
 	}
 	

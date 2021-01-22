@@ -35,10 +35,6 @@ public class TextController {
 	private String[] wordArr;
 	private JButton createAccountBtn;
 	private JButton confirmAccountBtn;
-	private JTextField newUsernameTxt;
-	private JTextField newPsswdTxt;
-	private JTextField userLoginTxt;
-	private JPasswordField psswdTxt;
 	
 	
 //	private static int numWordsEntered;
@@ -69,11 +65,7 @@ public class TextController {
 		this.createAccountBtn = this.loginWin.getCreateAccountBtn();
 		
 		this.confirmAccountBtn = this.createAccountWin.getConfBtn();
-		this.newUsernameTxt = this.createAccountWin.getUsernameField();
-		this.newPsswdTxt = this.createAccountWin.getPasswordField();
-		this.userLoginTxt = this.loginWin.getUsernameInputTxt();
-		this.psswdTxt = this.loginWin.getPasswordInputTxt();
-		
+
 //		fullParagraphStr = paragraph.getText();
 //		numWordsEntered = 0;
 //		carot = 0;
@@ -96,9 +88,16 @@ public class TextController {
     	createAccountWin.setVisible(true);
 	}
 	
+	public void listenBackBtn() {
+		this.createAccountWin.setVisible(false);
+		this.loginWin.setVisible(true);
+	}
+	
+	
 	public void listenConfirmAccountBtn(){
-
-    	int createAccountResultCode = PhalangeeMongoDB.createAccount(newUsernameTxt.getText(), newPsswdTxt.getText());
+		String username = createAccountWin.getUsernameField().getText();
+		String password = createAccountWin.getPasswordField().getText();
+    	int createAccountResultCode = PhalangeeMongoDB.createAccount(username, password);
     	
     	if(createAccountResultCode == 1) {
     		loginWin.setVisible(true);
@@ -112,7 +111,9 @@ public class TextController {
     	}
 	}
 	public void listenLoginBtn() {
-		boolean validLogin = PhalangeeMongoDB.userLogin(userLoginTxt.getText(), String.valueOf(psswdTxt.getPassword()));
+		String username = loginWin.getUsernameInputTxt().getText();
+		String password = String.valueOf(loginWin.getPasswordInputTxt().getPassword());
+		boolean validLogin = PhalangeeMongoDB.userLogin(username, password);
 		if(validLogin) {
 			loginWin.setVisible(false);
 			gameModesWin.setVisible(true);
@@ -178,6 +179,11 @@ public class TextController {
 					if(secs == 61) {
 						inGameLogic.stopTimer();
 						inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
+						String username = loginWin.getUsernameInputTxt().getText();
+						int mistyped = inGameLogic.getMistypedWords();
+						int numWordsEntered = inGameLogic.getNumWordsEntered();
+						//TODO make it so "normal" isnt hard coded as the game mode value
+						PhalangeeMongoDB.recordEndGameData(username, numWordsEntered, "normal", mistyped);
 						
 					}
 					else {

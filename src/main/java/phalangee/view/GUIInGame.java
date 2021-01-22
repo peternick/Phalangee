@@ -1,9 +1,12 @@
 package phalangee.view;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.Timer;
@@ -195,7 +198,7 @@ public class GUIInGame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setLocation(new java.awt.Point(100, 100));
+        centreWindow(this);
         setMinimumSize(new java.awt.Dimension(700, 500));
 
         TopPanel.setBackground(new java.awt.Color(203, 203, 203));
@@ -378,12 +381,18 @@ public class GUIInGame extends javax.swing.JFrame {
         pack();
         
         paragraphPane.setText(ParagraphGenerator.generate_paragraph());
-        paragraphPane.setEditable(false);
-        
-        
+        paragraphPane.setEditable(false); 
      
     }// </editor-fold>  
-                               
+                       
+    
+    public void centreWindow(JFrame frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(frame.getWidth());
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }
 
    
     

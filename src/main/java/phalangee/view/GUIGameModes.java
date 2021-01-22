@@ -1,5 +1,10 @@
 package phalangee.view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+
 import phalangee.controller.TextController;
 
 /**
@@ -56,7 +61,7 @@ public class GUIGameModes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Phalangee - Game Modes");
-        setLocation(new java.awt.Point(200, 200));
+        centreWindow(this);
         setMinimumSize(new java.awt.Dimension(300, 350));
         setPreferredSize(new java.awt.Dimension(300, 300));
         setResizable(false);
@@ -109,7 +114,7 @@ public class GUIGameModes extends javax.swing.JFrame {
         quizBtn.setAlignmentX(0.5F);
         quizBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                quizBtnMouseClicked(evt);
+                controller.listenBackBtn();
             }
         });
         BtnsPanel.add(quizBtn);
@@ -135,8 +140,12 @@ public class GUIGameModes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                    
 
-                            
-                                    
-
-                     
+    public void centreWindow(JFrame frame) {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(frame.getWidth());
+        int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+        frame.setLocation(x, y);
+    }              
+                                                 
 }

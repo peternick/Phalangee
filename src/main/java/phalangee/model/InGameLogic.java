@@ -24,8 +24,8 @@ public class InGameLogic {
 	private int carot;
 	private String[] wordArr;
 	private String typedWord;
-	private String[] paragraphs;
-	
+	private String gameMode;
+	private int paragraphID;
 	
 	public InGameLogic(GUIInGame game){
 		
@@ -35,9 +35,10 @@ public class InGameLogic {
 		this.wordArr = this.fullParagraphStr.split(" ");
 		this.numWordsEntered = 0;
 		this.typingStarted = false;
-		this.paragraphs = new String[2];
 		this.mistypedWords = 0;
 		this.totalWords = 0;
+		this.gameMode = "";
+		this.paragraphID = -1;
 	}
 	
 	public InGameLogic getInstance(GUIInGame game) {
@@ -77,9 +78,20 @@ public class InGameLogic {
 	public void stopTimer() {
 		this.timer.stop();
 	}
-	
 	public void startTimer() {
 		this.timer.start();
+	}
+	public void setGameMode(String mode) {
+		 this.gameMode = mode;
+	}
+	public String getGameMode() {
+		 return this.gameMode;
+	}
+	public void setParagraphID(int id) {
+		 this.paragraphID = id;
+	}
+	public int getParagraphID() {
+		 return this.paragraphID;
 	}
 
 	public int enterWord(KeyEvent e) {
