@@ -85,8 +85,8 @@ public class TextController {
 	 * opens up the Login Window for the user to interact with
 	 */
 	public void start() {
-		inGameWin.advanceWord(0, getNextBold());
-		this.inGameWin.setVisible(true);
+		
+		this.loginWin.setVisible(true);
 	}
 	
 	
