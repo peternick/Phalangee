@@ -144,6 +144,14 @@ public class GUIInGame extends javax.swing.JFrame {
 		}
 		
 	}
+	
+	public void setMistypedLbl(int numMistypedWords){
+    	TPmissedWrdsLbl.setText("Mistyped Words: " + numMistypedWords);
+    }
+	
+	public void setAccuracyLbl(double decimalPercentage){
+		TPAcc.setText("% accuracy: " + decimalPercentage);
+    }
     
 	/**
      * This method is called from within the constructor to initialize the form.
@@ -214,7 +222,7 @@ public class GUIInGame extends javax.swing.JFrame {
         TopPanel.add(TopSep2);
 
         TPmissedWrdsLbl.setForeground(new java.awt.Color(60, 60, 60));
-        TPmissedWrdsLbl.setText("Mistyped Words:");
+        TPmissedWrdsLbl.setText("Mistyped Words: 0");
         TPmissedWrdsLbl.setMaximumSize(new java.awt.Dimension(100, 30));
         TPmissedWrdsLbl.setMinimumSize(new java.awt.Dimension(130, 18));
         TPmissedWrdsLbl.setPreferredSize(new java.awt.Dimension(170, 30));
@@ -229,7 +237,9 @@ public class GUIInGame extends javax.swing.JFrame {
 
         TPAcc.setForeground(new java.awt.Color(60, 60, 60));
         TPAcc.setText("% accuracy:");
-        TPAcc.setPreferredSize(new java.awt.Dimension(120, 18));
+        TPAcc.setMaximumSize(new java.awt.Dimension(90, 18));
+        TPAcc.setMinimumSize(new java.awt.Dimension(90, 18));
+        TPAcc.setPreferredSize(new java.awt.Dimension(140, 20));
         TopPanel.add(TPAcc);
 
         getContentPane().add(TopPanel, java.awt.BorderLayout.PAGE_START);
@@ -370,7 +380,7 @@ public class GUIInGame extends javax.swing.JFrame {
         paragraphPane.setText(ParagraphGenerator.generate_paragraph());
         paragraphPane.setEditable(false);
         
- 
+        
      
     }// </editor-fold>  
                                

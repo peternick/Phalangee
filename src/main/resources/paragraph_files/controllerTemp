@@ -141,18 +141,14 @@ public class TextController {
 				inGameLogic.incrMistypedWords();
 				inGameLogic.incrTotalWords();
 				inGameWin.setMistypedLbl(inGameLogic.getMistypedWords());
-			}else if(enterWordCode == 1) {
-				inGameWin.advanceWord(inGameLogic.getNumWordsEntered(), inGameLogic.getNextWord());
-				inGameLogic.incrTotalWords();
 			}
 		} 
-		if(!(inGameLogic.getTotalWords() == 0)) {
-			double total = inGameLogic.getTotalWords();
-			double missed = inGameLogic.getMistypedWords();
-			double accuracy = Math.round(((total - missed)  / total) * 100);
-			inGameWin.setAccuracyLbl(accuracy);
+		if(enterWordCode == 1) {
+			inGameWin.advanceWord(inGameLogic.getNumWordsEntered(), inGameLogic.getNextWord());
+			inGameLogic.incrTotalWords();
 		}
-
+		int accuracy = Math.round((inGameLogic.getMistypedWords() / inGameLogic.getTotalWords()) * 10);
+		inGameWin.setAccuracyLbl(accuracy);
 	}
 	
 	public String[] getNextBold() {
@@ -195,3 +191,4 @@ public class TextController {
 	
 	
 }
+

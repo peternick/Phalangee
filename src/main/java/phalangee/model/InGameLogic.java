@@ -18,6 +18,8 @@ public class InGameLogic {
 	private int numWordsEntered;
 	private boolean typingStarted;
 	private String fullParagraphStr;
+	private int mistypedWords;
+	private int totalWords;
 	private Timer timer;
 	private int carot;
 	private String[] wordArr;
@@ -34,6 +36,8 @@ public class InGameLogic {
 		this.numWordsEntered = 0;
 		this.typingStarted = false;
 		this.paragraphs = new String[2];
+		this.mistypedWords = 0;
+		this.totalWords = 0;
 	}
 	
 	public InGameLogic getInstance(GUIInGame game) {
@@ -58,7 +62,18 @@ public class InGameLogic {
 	public void setTimer(Timer timer) {
 		 this.timer = timer;
 	}
-	
+	public int getMistypedWords() {
+		return this.mistypedWords;
+	}
+	public void incrMistypedWords() {
+		this.mistypedWords++;
+	}
+	public int getTotalWords() {
+		return this.totalWords;
+	}
+	public void incrTotalWords() {
+		this.totalWords++;
+	}
 	public void stopTimer() {
 		this.timer.stop();
 	}
@@ -77,9 +92,9 @@ public class InGameLogic {
 			if(enteredStr.equals(wordArr[numWordsEntered - 1]) && numWordsEntered > 0) {
 				return 1;
 			}
-			return 0;
+			return -1;
 		}
-		return -1;
+		return 0;
 	}
 	
 	
