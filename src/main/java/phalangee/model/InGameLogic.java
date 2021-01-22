@@ -15,7 +15,6 @@ import javax.swing.text.*;
 public class InGameLogic {
 	
 	private InGameLogic gameLogic;
-	private GUIInGame gameGUI;
 	private int numWordsEntered;
 	private boolean typingStarted;
 	private String fullParagraphStr;
@@ -32,7 +31,6 @@ public class InGameLogic {
 		this.typedWord = game.getInputField().getText();
 		this.carot = 0;
 		this.wordArr = this.fullParagraphStr.split(" ");
-		this.gameGUI = game;
 		this.numWordsEntered = 0;
 		this.typingStarted = false;
 		this.paragraphs = new String[2];
@@ -106,5 +104,10 @@ public class InGameLogic {
 		return paras;
 	}
 	
+	
+	public void updateVars(GUIInGame game) {
+		this.fullParagraphStr = game.getParagraph().getText();
+		this.typedWord = game.getInputField().getText();
+	}
 	
 }

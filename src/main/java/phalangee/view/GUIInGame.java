@@ -1,9 +1,14 @@
 package phalangee.view;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -111,9 +116,9 @@ public class GUIInGame extends javax.swing.JFrame {
 		return game;
 	}
 	
-	public void advanceWord(InGameLogic gameLogic, String[] subParagraphs) {
+	public void advanceWord(int numWordsEntered, String[] subParagraphs) {
 		String[] wordArr = paragraphPane.getText().split(" ");
-		int numWordsEntered = gameLogic.getNumWordsEntered();
+		
 		if(subParagraphs.length == 2) {
 			if(subParagraphs[1] == "") {
 				paragraphPane.setText(subParagraphs[0]);
@@ -307,7 +312,7 @@ public class GUIInGame extends javax.swing.JFrame {
         typeField.addKeyListener(new KeyListener() {
 			//invokes the enterWord method of the InGameLogic class to signify the end of a user typed word
 			public void keyPressed(KeyEvent arg0) {
-				controller.txt_input_handler();
+				controller.listenTypedWord(arg0);
 			}
 			public void keyReleased(KeyEvent e) {
 
@@ -317,9 +322,22 @@ public class GUIInGame extends javax.swing.JFrame {
 			}
 			
 		});
+        typeField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent arg0) {
+			}
+	
+			
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				controller.listenForStartInput();
+			}
+	
+			public void removeUpdate(DocumentEvent e) {
+			}
+		});
         typeField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                controller.listenForStartInput();
+
             }
         });
         BPMPtxtArea.add(typeField);
@@ -350,6 +368,10 @@ public class GUIInGame extends javax.swing.JFrame {
         pack();
         
         paragraphPane.setText(ParagraphGenerator.generate_paragraph());
+        paragraphPane.setEditable(false);
+        
+ 
+     
     }// </editor-fold>  
                                
 

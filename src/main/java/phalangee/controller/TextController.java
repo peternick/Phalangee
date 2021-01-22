@@ -85,6 +85,7 @@ public class TextController {
 	 * opens up the Login Window for the user to interact with
 	 */
 	public void start() {
+		inGameWin.advanceWord(0, getNextBold());
 		this.loginWin.setVisible(true);
 	}
 	
@@ -120,6 +121,8 @@ public class TextController {
 	
 	public void listenNormalGamemodeBtn() {
 		gameModesWin.setVisible(false);
+		
+		inGameWin.advanceWord(0, getNextBold());
 		inGameWin.setVisible(true);
 	}
 	
@@ -128,68 +131,49 @@ public class TextController {
 	 * pressed, it will signify the end of the typed word and the InGameLogic classes handles whether to proceed to the next word in the paragraph
 	 * or have the user type in the word again due to a misspelling
 	 */
-	public void txt_input_handler() {
-		this.typedWord.addKeyListener(new KeyListener() {
-
-			//invokes the enterWord method of the InGameLogic class to signify the end of a user typed word
-			public void keyPressed(KeyEvent arg0) {
-				if((inGameLogic.enterWord(arg0)) == 0) {
-					inGameWin.setInputField(null);
-				} else if((inGameLogic.enterWord(arg0)) == 1) {
-					inGameWin.advanceWord(inGameLogic, inGameLogic.getNextWord());
-				}
-			}
+	public void listenTypedWord(KeyEvent arg0) {
+		inGameLogic.updateVars(inGameWin);
+		if((inGameLogic.enterWord(arg0)) == 0) {
+			inGameWin.setInputField(null);
+		} else if((inGameLogic.enterWord(arg0)) == 1) {
+			inGameWin.advanceWord(inGameLogic.getNumWordsEntered(), inGameLogic.getNextWord());
+		}
 			
-			public void keyReleased(KeyEvent e) {
-
-			}
-			public void keyTyped(KeyEvent e) {
-
-			}
-			
-		});
 	}
 	
+	public String[] getNextBold() {
+		
+		inGameLogic.updateVars(inGameWin);
+		return inGameLogic.getNextWord();
+	}
 	
 	/**
 	 * called when the user starts typing their first word of the entire execution of the program; initiates the timer 
 	 */
 	public void listenForStartInput() {
-		JTextField typedWord = this.inGameWin.getInputField();
-		typedWord.getDocument().addDocumentListener(new DocumentListener() {
-			public void changedUpdate(DocumentEvent arg0) {
-			}
-	
-			
-			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				Boolean typingStarted = inGameLogic.getTypingStarted();
-				if(typingStarted == false) {
-					typingStarted = true;
-					final int init_s = (int)System.currentTimeMillis() / 1000;
-					Timer timer = inGameLogic.getTimer();
-					timer = new Timer(1000, new ActionListener() {
+		inGameLogic.updateVars(inGameWin);
+		Boolean typingStarted = inGameLogic.getTypingStarted();
+		if(typingStarted == false) {
+			typingStarted = true;
+			final int init_s = (int)System.currentTimeMillis() / 1000;
+			Timer timer = inGameLogic.getTimer();
+			timer = new Timer(1000, new ActionListener() {
+				
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
+					if(secs == 61) {
+						inGameLogic.stopTimer();;
+						inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
 						
-						public void actionPerformed(ActionEvent arg0) {
-							// TODO Auto-generated method stub
-							int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
-							if(secs == 61) {
-								inGameLogic.stopTimer();;
-								inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
-								
-							}
-							else {
-								inGameWin.displayTimeOrScore(secs);
-							}
-						}
-					});	
-					timer.start();
+					}
+					else {
+						inGameWin.displayTimeOrScore(secs);
+					}
 				}
-			}
-	
-			public void removeUpdate(DocumentEvent e) {
-			}
-		});
+			});	
+			timer.start();
+		}
 	}
 	
 	
