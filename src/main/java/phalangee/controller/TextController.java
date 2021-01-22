@@ -86,7 +86,7 @@ public class TextController {
 	 */
 	public void start() {
 		inGameWin.advanceWord(0, getNextBold());
-		this.loginWin.setVisible(true);
+		this.inGameWin.setVisible(true);
 	}
 	
 	
@@ -133,11 +133,14 @@ public class TextController {
 	 */
 	public void listenTypedWord(KeyEvent arg0) {
 		inGameLogic.updateVars(inGameWin);
-		if((inGameLogic.enterWord(arg0)) == 0) {
+		int enterWordCode = inGameLogic.enterWord(arg0);
+		if(enterWordCode != -1) {
 			inGameWin.setInputField(null);
-		} else if((inGameLogic.enterWord(arg0)) == 1) {
+		} 
+		if(enterWordCode == 1) {
 			inGameWin.advanceWord(inGameLogic.getNumWordsEntered(), inGameLogic.getNextWord());
 		}
+		
 			
 	}
 	
@@ -154,16 +157,15 @@ public class TextController {
 		inGameLogic.updateVars(inGameWin);
 		Boolean typingStarted = inGameLogic.getTypingStarted();
 		if(typingStarted == false) {
-			typingStarted = true;
+			inGameLogic.setTypingStarted(true);
 			final int init_s = (int)System.currentTimeMillis() / 1000;
-			Timer timer = inGameLogic.getTimer();
-			timer = new Timer(1000, new ActionListener() {
+			inGameLogic.setTimer(new Timer(1000, new ActionListener() {
 				
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
 					if(secs == 61) {
-						inGameLogic.stopTimer();;
+						inGameLogic.stopTimer();
 						inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
 						
 					}
@@ -171,8 +173,8 @@ public class TextController {
 						inGameWin.displayTimeOrScore(secs);
 					}
 				}
-			});	
-			timer.start();
+			}));
+			inGameLogic.startTimer();
 		}
 	}
 	

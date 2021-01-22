@@ -51,12 +51,20 @@ public class InGameLogic {
 		return this.typingStarted;
 	}
 	
-	public Timer getTimer() {
-		return this.timer;
+	public void setTypingStarted(boolean isStarted) {
+		this.typingStarted = isStarted;
+	}
+	
+	public void setTimer(Timer timer) {
+		 this.timer = timer;
 	}
 	
 	public void stopTimer() {
 		this.timer.stop();
+	}
+	
+	public void startTimer() {
+		this.timer.start();
 	}
 
 	public int enterWord(KeyEvent e) {
