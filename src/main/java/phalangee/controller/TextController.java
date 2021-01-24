@@ -176,7 +176,7 @@ public class TextController {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					int secs = ((int)System.currentTimeMillis() / 1000) - init_s;
-					if(secs == 61) {
+					if(secs >= 61) {
 						inGameLogic.stopTimer();
 						inGameWin.displayTimeOrScore("WPM: " + inGameLogic.getNumWordsEntered());
 						String username = loginWin.getUsernameInputTxt().getText();

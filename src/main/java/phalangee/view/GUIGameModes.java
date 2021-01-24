@@ -60,10 +60,10 @@ public class GUIGameModes extends javax.swing.JFrame {
         LeftPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Phalangee - Game Modes");
-        centreWindow(this);
+        setTitle("Phalangee - Game Modes");   
         setMinimumSize(new java.awt.Dimension(300, 350));
         setPreferredSize(new java.awt.Dimension(300, 300));
+        centreWindow(this);
         setResizable(false);
 
         BtnsPanel.setMaximumSize(new java.awt.Dimension(150, 252));
@@ -142,7 +142,6 @@ public class GUIGameModes extends javax.swing.JFrame {
 
     public void centreWindow(JFrame frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(frame.getWidth());
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);

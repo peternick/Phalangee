@@ -260,7 +260,6 @@ public class GUILogin extends javax.swing.JFrame{
 	
     public void centreWindow(JFrame frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(frame.getWidth());
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);

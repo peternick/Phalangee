@@ -198,8 +198,8 @@ public class GUIInGame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        centreWindow(this);
         setMinimumSize(new java.awt.Dimension(700, 500));
+        centreWindow(this);
 
         TopPanel.setBackground(new java.awt.Color(203, 203, 203));
         TopPanel.setFocusTraversalPolicyProvider(true);
@@ -388,7 +388,6 @@ public class GUIInGame extends javax.swing.JFrame {
     
     public void centreWindow(JFrame frame) {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(frame.getWidth());
         int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
         int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
         frame.setLocation(x, y);

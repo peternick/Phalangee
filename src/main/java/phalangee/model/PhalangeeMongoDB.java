@@ -116,34 +116,58 @@ public class PhalangeeMongoDB {
 	}
 	
 	public static void recordEndGameData(String user, int wpm, String gameMode, int mistypedWords) {
-		LocalDate currDate = LocalDate.now();
+		String currDate = LocalDate.now().toString();
 		boolean dateObjPresent = false;
+		Document foundDateDoc = null;
 		for(Object d : gameInfo.find()) {
 			if(((Document) d).containsValue(currDate)) {
+				
 				dateObjPresent = true;
+				foundDateDoc = (Document) d;
 				break;
 			}
 		}
 		
 		if(dateObjPresent) {
-			
+			if(wpm > foundDateDoc.getInteger("High Score")) {
+				System.out.println("new high score");
+				Bson updateHighScore = new Document("High Score", wpm);
+				Bson updateHighScoreOper = new Document("$set", updateHighScore);
+				gameInfo.updateOne(foundDateDoc, updateHighScoreOper);
+			}else {
+				ArrayList userDocList = (ArrayList) foundDateDoc.get("GameData");
+				System.out.println("edit existing");
+				int arrIndex = 0;
+				for(Object gameInfoDoc : userDocList) {
+					if(((Document)gameInfoDoc).containsKey(user)){
+						Document gameStatsDoc = new Document("GameID", gameMode);
+						gameStatsDoc.append("WPM", wpm);
+						gameStatsDoc.append("Mistyped", mistypedWords);
+						
+						Bson updateTo = new Document("GameData." + arrIndex + "." + user, gameStatsDoc);
+						Bson upadateOp = new Document("$push", updateTo);
+						gameInfo.updateOne(foundDateDoc, upadateOp);
+					}
+					arrIndex++;
+				}
+			}
 		}else {
-			Document newDoc = new Document("date", currDate);
+			Document newDoc = new Document("Date", currDate);
 			ArrayList gameDocObjsList = new ArrayList();
 			ArrayList userGameInfoList = new ArrayList();
 			
 			Document gameInfoDoc = new Document("GameID", gameMode);
 			gameInfoDoc.append("WPM", wpm);
 			gameInfoDoc.append("Mistyped", mistypedWords);
-			gameDocObjsList.add(gameInfoDoc);
+			userGameInfoList.add(gameInfoDoc);
 			
-			Document userGameInfoDoc = new Document(user, gameDocObjsList);
+			Document userGameInfoDoc = new Document(user, userGameInfoList);
 			userGameInfoDoc.append("Highest WPM", wpm);
 			
-			userGameInfoList.add(userGameInfoDoc);
+			gameDocObjsList.add(userGameInfoDoc);
 			
 			newDoc.append("High Score", wpm);
-			newDoc.append("gameData", userGameInfoList);
+			newDoc.append("GameData", gameDocObjsList);
 			
 			gameInfo.insertOne(newDoc);
 		}
