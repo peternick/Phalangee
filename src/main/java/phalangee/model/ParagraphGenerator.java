@@ -13,7 +13,7 @@ import java.nio.file.Files;
 public class ParagraphGenerator {
 
 	private static final int NUM_PARAGRAPHS = 6;
-	private static int randNum = (int)((Math.random() + 0.25) * (NUM_PARAGRAPHS+1));
+	private static int randNum = (int)(((Math.random()) * NUM_PARAGRAPHS) + 1);
 	
 	
 	public static String generate_paragraph() {

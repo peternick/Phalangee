@@ -52,14 +52,14 @@ public class GUIInGame extends javax.swing.JFrame {
     private javax.swing.JSeparator TopSep1;
     private javax.swing.JSeparator TopSep2;
     private javax.swing.JSeparator TopSep3;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextPane paragraphPane;
     private javax.swing.JButton menuBtn;
+    private javax.swing.JTextPane paragraphPane;
+    private javax.swing.JButton restartBtn;
     private javax.swing.JTextField typeField;
     private javax.swing.JLabel typeFieldDesc1;
     private javax.swing.JLabel typeFieldDesc2;
@@ -183,7 +183,7 @@ public class GUIInGame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        restartBtn = new javax.swing.JButton();
         BPMPtxtArea = new javax.swing.JPanel();
         typeFieldDesc1 = new javax.swing.JLabel();
         typeFieldDesc2 = new javax.swing.JLabel();
@@ -284,6 +284,7 @@ public class GUIInGame extends javax.swing.JFrame {
         BPRPRestartBtn.setPreferredSize(new java.awt.Dimension(120, 100));
         BPRPRestartBtn.setLayout(new java.awt.BorderLayout(30, 20));
         BPRPRestartBtn.add(jSeparator2, java.awt.BorderLayout.LINE_END);
+        
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         BPRPRestartBtn.add(jSeparator3, java.awt.BorderLayout.PAGE_END);
@@ -291,11 +292,17 @@ public class GUIInGame extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
         BPRPRestartBtn.add(jSeparator4, java.awt.BorderLayout.PAGE_START);
 
-        jButton1.setText("Restart");
-        jButton1.setAlignmentX(0.1F);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setPreferredSize(new java.awt.Dimension(50, 30));
-        BPRPRestartBtn.add(jButton1, java.awt.BorderLayout.CENTER);
+        restartBtn.setText("Restart");
+        restartBtn.setAlignmentX(0.1F);
+        restartBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        restartBtn.setPreferredSize(new java.awt.Dimension(50, 30));
+        restartBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                controller.listenRestartBtn();
+            }
+        });
+        
+        BPRPRestartBtn.add(restartBtn, java.awt.BorderLayout.CENTER);
 
         BottomPanel.add(BPRPRestartBtn, java.awt.BorderLayout.LINE_END);
 

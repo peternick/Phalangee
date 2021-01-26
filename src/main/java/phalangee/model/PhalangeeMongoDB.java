@@ -134,22 +134,23 @@ public class PhalangeeMongoDB {
 				Bson updateHighScore = new Document("High Score", wpm);
 				Bson updateHighScoreOper = new Document("$set", updateHighScore);
 				gameInfo.updateOne(foundDateDoc, updateHighScoreOper);
-			}else {
-				ArrayList userDocList = (ArrayList) foundDateDoc.get("GameData");
-				System.out.println("edit existing");
-				int arrIndex = 0;
-				for(Object gameInfoDoc : userDocList) {
-					if(((Document)gameInfoDoc).containsKey(user)){
-						Document gameStatsDoc = new Document("GameID", gameMode);
-						gameStatsDoc.append("WPM", wpm);
-						gameStatsDoc.append("Mistyped", mistypedWords);
-						
-						Bson updateTo = new Document("GameData." + arrIndex + "." + user, gameStatsDoc);
-						Bson upadateOp = new Document("$push", updateTo);
-						gameInfo.updateOne(foundDateDoc, upadateOp);
-					}
-					arrIndex++;
+			}
+
+			ArrayList userDocList = (ArrayList) foundDateDoc.get("GameData");
+			System.out.println("edit existing");
+			int arrIndex = 0;
+			for(Object gameInfoDoc : userDocList) {
+				if(((Document)gameInfoDoc).containsKey(user)){
+					Document gameStatsDoc = new Document("GameID", gameMode);
+					gameStatsDoc.append("WPM", wpm);
+					gameStatsDoc.append("Mistyped", mistypedWords);
+					
+					Bson updateTo = new Document("GameData." + arrIndex + "." + user, gameStatsDoc);
+					Bson upadateOp = new Document("$push", updateTo);
+					gameInfo.updateOne(foundDateDoc, upadateOp);
 				}
+				arrIndex++;
+				
 			}
 		}else {
 			Document newDoc = new Document("Date", currDate);

@@ -77,23 +77,38 @@ public class TextController {
 	 * opens up the Login Window for the user to interact with
 	 */
 	public void start() {
-//		inGameWin.advanceWord(0, getNextBold());
-//		inGameWin.setVisible(true);
+//		inGameWin.advanceWord(0, getNextBold()); //testing purposes
+//		inGameWin.setVisible(true); //testing purposes
+		
 		this.loginWin.setVisible(true); //uncomment this part for the program to run as intended
 	}
 	
-	
+	//listens for when the user clicks the "Create Account" button on the CreateAccount window
 	public void listenCreateAccountBtn(){
 		loginWin.setVisible(false);
     	createAccountWin.setVisible(true);
 	}
 	
-	public void listenBackBtn() {
-		this.createAccountWin.setVisible(false);
+	//listens for when the user clicks the "Back" button on the GameModes window
+	public void listenBackBtnModesWin() {
+		this.gameModesWin.setVisible(false);
 		this.loginWin.setVisible(true);
 	}
 	
+	//listens for when the user clicks the "Restart" button on the InGame window
+	public void listenRestartBtn() {
+		this.inGameWin.setVisible(false);
+		if(this.inGameLogic.getTimer() != null) {
+			this.inGameLogic.stopTimer();
+		}
+		this.inGameWin = new GUIInGame(this);
+		this.inGameLogic = new InGameLogic(this.inGameWin);
+		this.listenNormalGamemodeBtn();
+		this.inGameLogic.updateVars(inGameWin);
+		this.inGameWin.setVisible(true);
+	}
 	
+	//listens for when the user clicks the "Confirm" button on the CreateAccount window
 	public void listenConfirmAccountBtn(){
 		String username = createAccountWin.getUsernameField().getText();
 		String password = createAccountWin.getPasswordField().getText();
@@ -110,6 +125,8 @@ public class TextController {
     		System.out.println("ERROR: createAccountResultCode HAS AN INCORRECT VALUE");
     	}
 	}
+	
+	//listens for when the user clicks the "Login" button on the Login window
 	public void listenLoginBtn() {
 		String username = loginWin.getUsernameInputTxt().getText();
 		String password = String.valueOf(loginWin.getPasswordInputTxt().getPassword());
@@ -120,7 +137,7 @@ public class TextController {
 		}
 	}
 	
-	
+	//listens for when the user clicks the "Normal" game mode button on the GameModes window
 	public void listenNormalGamemodeBtn() {
 		gameModesWin.setVisible(false);
 		

@@ -63,6 +63,9 @@ public class InGameLogic {
 	public void setTimer(Timer timer) {
 		 this.timer = timer;
 	}
+	public Timer getTimer() {
+		 return this.timer;
+	}
 	public int getMistypedWords() {
 		return this.mistypedWords;
 	}
@@ -94,6 +97,11 @@ public class InGameLogic {
 		 return this.paragraphID;
 	}
 
+	//called whenever a letter is typed in the text field of the GUIInGame window. Typing a space signifies that a user is done typing 
+	//a word. This method returns a code:
+	// 1: The user typed a space and the word in the text field corresponds to the bolded word in the paragraph pane
+	// 0: The user typed a letter and is still typing
+	// -1: The user typed an incorrect word
 	public int enterWord(KeyEvent e) {
 		//when the user types a space (key code = 32) checks whether the currently typed word is the same as the word that is bolded in the view
 		if(e.getKeyCode() == 32) {
@@ -115,7 +123,8 @@ public class InGameLogic {
 	 * advances the bolded word of the paragraph on the main view depending on if the user typed it in correctly or not
 	 */
 	public String[] getNextWord() {
-		String[] paras = new String[2];
+		String[] paras = new String[2];  //stores 2 paragraphs: the subparagraph before the bolded word and the subparagraph after.
+		//if no words were entered then the paras array at index 0 will be the whole paragraph
 		if(numWordsEntered == 0) {
 			String subPara = fullParagraphStr.substring(wordArr[0].length());
 			carot = wordArr[numWordsEntered].length() + 1;
@@ -127,6 +136,8 @@ public class InGameLogic {
 			String followingText = fullParagraphStr.substring(carot);
 			String precedingText = "";
 			int i = 0;
+			//iterates through the word array, the array of all words in the paragraph, and adds it to the preceding text until the 
+			//index of the bolded word is found
 			while(i < numWordsEntered) {
 				precedingText = precedingText + wordArr[i] + " ";
 				i++;
@@ -139,7 +150,7 @@ public class InGameLogic {
 		return paras;
 	}
 	
-	
+	//updates variables in this class that rely directly on GUI variables
 	public void updateVars(GUIInGame game) {
 		this.fullParagraphStr = game.getParagraph().getText();
 		this.typedWord = game.getInputField().getText();

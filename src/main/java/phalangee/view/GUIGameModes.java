@@ -126,7 +126,7 @@ public class GUIGameModes extends javax.swing.JFrame {
         backBtn.setAlignmentX(0.5F);
         backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backBtnMouseClicked(evt);
+                controller.listenBackBtnModesWin();
             }
         });
         BtnsPanel.add(backBtn);
